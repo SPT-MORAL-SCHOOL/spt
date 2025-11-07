@@ -1,0 +1,1242 @@
+<!doctype html>
+<html lang="th">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>โรงเรียนสตรีพัทลุง</title>
+  <script src="/_sdk/data_sdk.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-storage-compat.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      box-sizing: border-box;
+      font-family: 'Prompt', 'Kanit', sans-serif;
+    }
+    
+    * {
+      box-sizing: border-box;
+    }
+
+    @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600;700&family=Kanit:wght@300;400;600;700&display=swap');
+
+    .tabak-pattern {
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%230066cc' fill-opacity='0.05'%3E%3Cpath d='M30 30c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10-10-4.477-10-10zm10-8c-4.418 0-8 3.582-8 8s3.582 8 8 8 8-3.582 8-8-3.582-8-8-8z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+
+
+
+    .mobile-menu {
+      display: none;
+    }
+
+    .mobile-menu.active {
+      display: block;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      padding: 10px;
+    }
+
+    .hamburger span {
+      width: 25px;
+      height: 3px;
+      background-color: #0066cc;
+      margin: 3px 0;
+      transition: 0.3s;
+    }
+
+    @media (max-width: 768px) {
+      .desktop-menu {
+        display: none !important;
+      }
+      
+      .hamburger {
+        display: flex;
+      }
+
+      .mobile-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: white;
+        border-top: 1px solid #e5e7eb;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        z-index: 50;
+      }
+    }
+
+    .nav-link.active {
+      color: #0066cc;
+      font-weight: 600;
+      border-bottom: 3px solid #0066cc;
+    }
+
+    .loading-spinner {
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid #0066cc;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 20px auto;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #333;
+      color: white;
+      padding: 16px 24px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      z-index: 10000;
+      animation: slideIn 0.3s ease-out;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(400px);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      overflow-y: auto;
+    }
+
+    .modal.active {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background-color: white;
+      padding: 30px;
+      border-radius: 12px;
+      max-width: 600px;
+      width: 90%;
+      max-height: 90%;
+      overflow-y: auto;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+ </head>
+ <body class="bg-white"><!-- Navigation -->
+  <nav id="navbar" class="bg-white shadow-md sticky top-0 z-50">
+   <div class="max-w-7xl mx-auto px-6">
+    <div class="flex justify-between items-center py-4">
+     <div class="flex items-center space-x-3"><img src="https://img5.pic.in.th/file/secure-sv1/IMG_0310f4b22b3a3a8d0946.jpeg" alt="โลโก้โรงเรียนสตรีพัทลุง" class="w-12 h-12 rounded-full object-cover shadow-lg border-4 border-white" onerror="this.src=''; this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-800 rounded-full items-center justify-center text-white font-bold text-xl shadow-lg border-4 border-white" style="display: none;">
+       ส
+      </div><span class="text-xl font-bold text-blue-800">โรงเรียนสตรีพัทลุง</span>
+     </div><!-- Desktop Menu -->
+     <div class="desktop-menu flex items-center space-x-6"><a href="#" class="nav-link text-gray-700 hover:text-blue-600 transition py-2" data-page="home">หน้าหลัก</a> <a href="#" class="nav-link text-gray-700 hover:text-blue-600 transition py-2" data-page="about">เกี่ยวกับโรงเรียน</a> <a href="#" class="nav-link text-gray-700 hover:text-blue-600 transition py-2" data-page="departments">กลุ่มงาน</a> <a href="#" class="nav-link text-gray-700 hover:text-blue-600 transition py-2" data-page="subjects">กลุ่มสาระการเรียนรู้</a> <a href="#" class="nav-link text-gray-700 hover:text-blue-600 transition py-2" data-page="documents">เอกสาร</a> <a href="#" class="nav-link text-gray-700 hover:text-blue-600 transition py-2" data-page="admission">งานรับนักเรียน</a> <a href="#" class="nav-link text-gray-700 hover:text-blue-600 transition py-2" data-page="contact">ติดต่อ</a> <a href="#" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition" data-page="login">เข้าสู่ระบบ</a>
+     </div><!-- Mobile Hamburger -->
+     <div class="hamburger" id="hamburger"><span></span> <span></span> <span></span>
+     </div>
+    </div><!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu"><a href="#" class="block py-3 px-4 text-gray-700 hover:bg-blue-50 nav-link" data-page="home">หน้าหลัก</a> <a href="#" class="block py-3 px-4 text-gray-700 hover:bg-blue-50 nav-link" data-page="about">เกี่ยวกับโรงเรียน</a> <a href="#" class="block py-3 px-4 text-gray-700 hover:bg-blue-50 nav-link" data-page="departments">กลุ่มงาน</a> <a href="#" class="block py-3 px-4 text-gray-700 hover:bg-blue-50 nav-link" data-page="subjects">กลุ่มสาระการเรียนรู้</a> <a href="#" class="block py-3 px-4 text-gray-700 hover:bg-blue-50 nav-link" data-page="documents">เอกสาร</a> <a href="#" class="block py-3 px-4 text-gray-700 hover:bg-blue-50 nav-link" data-page="admission">งานรับนักเรียน</a> <a href="#" class="block py-3 px-4 text-gray-700 hover:bg-blue-50 nav-link" data-page="contact">ติดต่อ</a> <a href="#" class="block py-3 px-4 bg-blue-600 text-white hover:bg-blue-700 m-4 rounded-lg text-center" data-page="login">เข้าสู่ระบบ</a>
+    </div>
+   </div>
+  </nav><!-- Main Content -->
+  <main id="mainContent" class="min-h-screen"><!-- Content will be loaded here -->
+  </main><!-- Footer -->
+  <footer class="bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 text-white py-16 mt-20">
+   <div class="max-w-7xl mx-auto px-4"><!-- Main Footer Content -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12"><!-- School Info -->
+     <div class="lg:col-span-1">
+      <div class="flex items-center space-x-3 mb-6"><img src="https://img5.pic.in.th/file/secure-sv1/IMG_0310f4b22b3a3a8d0946.jpeg" alt="โลโก้โรงเรียนสตรีพัทลุง" class="w-16 h-16 rounded-full object-cover shadow-lg border-6 border-white" onerror="this.src=''; this.style.display='none'; this.nextElementSibling.style.display='flex';">
+       <div class="w-16 h-16 bg-gradient-to-br from-blue-600 to-blue-800 rounded-full items-center justify-center text-white font-bold text-2xl shadow-lg border-6 border-white" style="display: none;">
+        ส
+       </div>
+       <div>
+        <h3 class="text-xl font-bold">โรงเรียนสตรีพัทลุง</h3>
+        <p class="text-blue-200 text-sm">Satri Phatthalung School</p>
+       </div>
+      </div>
+      <div class="space-y-2 text-blue-100">
+       <div class="flex items-start space-x-2"><span class="text-blue-300 mt-1">📞</span>
+        <div>
+         <p class="text-sm">โทรศัพท์: 074-613-023</p>
+        </div>
+       </div>
+       <div class="flex items-start space-x-2"><span class="text-blue-300 mt-1">📧</span>
+        <div>
+         <p class="text-sm">Email: satriphatthalung@spt.ac.th</p>
+        </div>
+       </div>
+       <div class="flex items-start space-x-2"><span class="text-blue-300 mt-1">📍</span>
+        <div>
+         <p class="text-sm leading-relaxed">เลขที่ 250 ถนนราเมศวร์<br>
+          ต.คูหาสวรรค์ อ.เมืองพัทลุง<br>
+          จ.พัทลุง 93000</p>
+        </div>
+       </div>
+      </div>
+     </div><!-- Quick Links -->
+     <div>
+      <h3 class="text-lg font-bold mb-4 text-blue-200">เมนูหลัก</h3>
+      <ul class="space-y-3">
+       <li><a href="#" class="nav-link text-blue-100 hover:text-white hover:pl-2 transition-all duration-300" data-page="home">🏠 หน้าหลัก</a></li>
+       <li><a href="#" class="nav-link text-blue-100 hover:text-white hover:pl-2 transition-all duration-300" data-page="about">ℹ️ เกี่ยวกับโรงเรียน</a></li>
+       <li><a href="#" class="nav-link text-blue-100 hover:text-white hover:pl-2 transition-all duration-300" data-page="departments">👥 กลุ่มงาน</a></li>
+       <li><a href="#" class="nav-link text-blue-100 hover:text-white hover:pl-2 transition-all duration-300" data-page="subjects">📚 กลุ่มสาระการเรียนรู้</a></li>
+       <li><a href="#" class="nav-link text-blue-100 hover:text-white hover:pl-2 transition-all duration-300" data-page="admission">🎓 งานรับนักเรียน</a></li>
+      </ul>
+     </div><!-- Government Links -->
+     <div>
+      <h3 class="text-lg font-bold mb-4 text-blue-200">หน่วยงานที่เกี่ยวข้อง</h3>
+      <ul class="space-y-3">
+       <li><a href="https://www.moe.go.th" target="_blank" rel="noopener noreferrer" class="text-blue-100 hover:text-white hover:pl-2 transition-all duration-300 flex items-center space-x-2"><span>🏛️</span><span>กระทรวงศึกษาธิการ</span></a></li>
+       <li><a href="https://www.obec.go.th" target="_blank" rel="noopener noreferrer" class="text-blue-100 hover:text-white hover:pl-2 transition-all duration-300 flex items-center space-x-2"><span>🏢</span><span>สพฐ.</span></a></li>
+       <li><a href="https://www.sesao12.go.th" target="_blank" rel="noopener noreferrer" class="text-blue-100 hover:text-white hover:pl-2 transition-all duration-300 flex items-center space-x-2"><span>🏫</span><span>สพม.พัทลุง</span></a></li>
+       <li><a href="https://www.phatthalung.go.th" target="_blank" rel="noopener noreferrer" class="text-blue-100 hover:text-white hover:pl-2 transition-all duration-300 flex items-center space-x-2"><span>🏛️</span><span>ศึกษาธิการจังหวัดพัทลุง</span></a></li>
+      </ul>
+     </div><!-- Systems & Social -->
+     <div>
+      <h3 class="text-lg font-bold mb-4 text-blue-200">ระบบงาน &amp; โซเชียล</h3>
+      <div class="space-y-3 mb-6"><a href="https://2b.spt.ac.th" target="_blank" rel="noopener noreferrer" class="text-blue-100 hover:text-white hover:pl-2 transition-all duration-300 flex items-center space-x-2 text-sm"><span>💻</span><span>ระบบ 2b</span></a> <a href="https://sgs.bopp-obec.info" target="_blank" rel="noopener noreferrer" class="text-blue-100 hover:text-white hover:pl-2 transition-all duration-300 flex items-center space-x-2 text-sm"><span>📊</span><span>ระบบ SGS</span></a> <a href="https://apps.myschool.in.th/login" target="_blank" rel="noopener noreferrer" class="text-blue-100 hover:text-white hover:pl-2 transition-all duration-300 flex items-center space-x-2 text-sm"><span>🎒</span><span>MySchool</span></a>
+      </div>
+      <h4 class="text-sm font-semibold mb-3 text-blue-200">ติดตามเรา</h4>
+      <div class="flex space-x-3"><a href="https://www.facebook.com/spt.ac.th" target="_blank" rel="noopener noreferrer" class="bg-blue-600 hover:bg-blue-500 p-3 rounded-full transition-all duration-300 transform hover:scale-110"> <span class="text-xl">📘</span> </a> <a href="https://www.instagram.com/sptschool_official?igsh=MWM0NWl2MmF1cXhvdw==" target="_blank" rel="noopener noreferrer" class="bg-pink-600 hover:bg-pink-500 p-3 rounded-full transition-all duration-300 transform hover:scale-110"> <span class="text-xl">📸</span> </a> <a href="https://www.tiktok.com/@spt_school?_t=ZS-90tOrK4pFtH&amp;_r=1" target="_blank" rel="noopener noreferrer" class="bg-gray-800 hover:bg-gray-700 p-3 rounded-full transition-all duration-300 transform hover:scale-110"> <span class="text-xl">🎵</span> </a>
+      </div>
+     </div>
+    </div><!-- Bottom Footer -->
+    <div class="border-t border-blue-700 pt-8">
+     <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+      <div class="text-center md:text-left">
+       <p class="text-blue-100">© 2024 โรงเรียนสตรีพัทลุง | Satri Phatthalung School</p>
+      </div>
+      <div class="flex items-center space-x-4 text-blue-200"><span class="text-2xl">💙</span> <span class="text-sm">รักกันน้องพี่สตรีพัทลุง</span>
+      </div>
+     </div>
+    </div>
+   </div>
+  </footer><!-- Admin Modal -->
+  <div id="adminModal" class="modal">
+   <div class="modal-content">
+    <div class="flex justify-between items-center mb-6">
+     <h2 class="text-2xl font-bold text-blue-800">จัดการข้อมูล</h2><button id="closeModal" class="text-gray-500 hover:text-gray-700 text-3xl">×</button>
+    </div>
+    <form id="adminForm"><input type="hidden" id="editId">
+     <div class="mb-4"><label class="block text-gray-700 font-semibold mb-2">หัวข้อ</label> <input type="text" id="itemTitle" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500" required>
+     </div>
+     <div class="mb-4"><label class="block text-gray-700 font-semibold mb-2">เนื้อหา</label> <textarea id="itemContent" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"></textarea>
+     </div>
+     <div class="mb-4"><label class="block text-gray-700 font-semibold mb-2">URL รูปภาพ (ถ้ามี)</label> <input type="url" id="itemImage" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500" placeholder="https://example.com/image.jpg">
+     </div>
+     <div class="flex space-x-4"><button type="submit" class="flex-1 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition font-semibold"> บันทึก </button> <button type="button" id="cancelBtn" class="flex-1 bg-gray-300 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-400 transition font-semibold"> ยกเลิก </button>
+     </div>
+    </form>
+   </div>
+  </div>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBeh27zK1qUYP7tOU3MYNn_RobC8RaPZSM",
+      authDomain: "website-moral.firebaseapp.com",
+      projectId: "website-moral",
+      storageBucket: "website-moral.firebasestorage.app",
+      messagingSenderId: "450436753681",
+      appId: "1:450436753681:web:13eb5458b57950099984b0",
+      measurementId: "G-1GR9NTF8JB"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    const defaultConfig = {
+      school_name: "โรงเรียนสตรีพัทลุง",
+      school_address: "เลขที่ 250 ถนนราเมศวร์ ต.คูหาสวรรค์ อ.เมืองพัทลุง จ.พัทลุง 93000"
+    };
+
+    let currentPage = 'home';
+    let isAdmin = false;
+    let allData = [];
+    let currentEditType = '';
+    let currentEditCategory = '';
+
+    const dataHandler = {
+      onDataChanged(data) {
+        allData = data;
+        if (currentPage && typeof window[`render${capitalize(currentPage)}Page`] === 'function') {
+          window[`render${capitalize(currentPage)}Page`]();
+        }
+      }
+    };
+
+    async function initApp() {
+      const initResult = await window.dataSdk.init(dataHandler);
+      if (!initResult.isOk) {
+        showToast('เกิดข้อผิดพลาดในการเริ่มต้นระบบ');
+        return;
+      }
+
+      if (window.elementSdk) {
+        window.elementSdk.init({
+          defaultConfig,
+          onConfigChange: async (config) => {
+            document.title = config.school_name || defaultConfig.school_name;
+          },
+          mapToCapabilities: (config) => ({
+            recolorables: [],
+            borderables: [],
+            fontEditable: undefined,
+            fontSizeable: undefined
+          }),
+          mapToEditPanelValues: (config) => new Map([
+            ["school_name", config.school_name || defaultConfig.school_name],
+            ["school_address", config.school_address || defaultConfig.school_address]
+          ])
+        });
+      }
+
+      auth.onAuthStateChanged((user) => {
+        isAdmin = !!user;
+        if (currentPage && typeof window[`render${capitalize(currentPage)}Page`] === 'function') {
+          window[`render${capitalize(currentPage)}Page`]();
+        }
+      });
+
+      const savedPage = sessionStorage.getItem('currentPage') || 'home';
+      navigateToPage(savedPage);
+    }
+
+    function capitalize(str) {
+      return str.charAt(0).toUpperCase() + str.slice(1).replace(/-([a-z])/g, (g) => g[1].toUpperCase());
+    }
+
+    function showToast(message) {
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.textContent = message;
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 3000);
+    }
+
+    function showLoading() {
+      return '<div class="loading-spinner"></div>';
+    }
+
+    document.getElementById('hamburger').addEventListener('click', () => {
+      document.getElementById('mobileMenu').classList.toggle('active');
+    });
+
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const page = e.target.getAttribute('data-page');
+        if (page) {
+          navigateToPage(page);
+        }
+      });
+    });
+
+    function navigateToPage(page) {
+      currentPage = page;
+      sessionStorage.setItem('currentPage', page);
+      
+      // เลื่อนขึ้นบนสุดอัตโนมัติ
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      
+      // ซ่อนเมนูมือถือ
+      document.getElementById('mobileMenu').classList.remove('active');
+      
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.remove('active');
+        const linkPage = link.getAttribute('data-page');
+        if (linkPage === page || (page.startsWith('dept-') && linkPage === 'departments') || 
+            (page.startsWith('subject-') && linkPage === 'subjects') ||
+            (page.startsWith('doc-') && linkPage === 'documents')) {
+          link.classList.add('active');
+        }
+      });
+
+      const renderFunction = `render${capitalize(page)}Page`;
+      if (typeof window[renderFunction] === 'function') {
+        window[renderFunction]();
+      }
+    }
+
+    function renderHomePage() {
+      const config = window.elementSdk?.config || defaultConfig;
+      document.getElementById('mainContent').innerHTML = `
+        <div class="tabak-pattern">
+          <div class="max-w-7xl mx-auto px-4 py-16">
+            <div class="text-center mb-16">
+              <div class="inline-block p-8 mb-6">
+                <img src="https://img5.pic.in.th/file/secure-sv1/IMG_0310f4b22b3a3a8d0946.jpeg" alt="โลโก้โรงเรียนสตรีพัทลุง" class="w-32 h-32 rounded-full object-cover shadow-2xl border-8 border-white" onerror="this.src=''; this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="w-32 h-32 bg-gradient-to-br from-blue-600 to-blue-800 rounded-full items-center justify-center text-white font-bold text-4xl shadow-2xl border-8 border-white" style="display: none;">
+                  ส
+                </div>
+              </div>
+              <h1 class="text-5xl font-bold text-blue-800 mb-4">${config.school_name || defaultConfig.school_name}</h1>
+              <p class="text-xl text-gray-600">Satri Phatthalung School</p>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-xl p-8 mb-12">
+              <h2 class="text-3xl font-bold text-blue-800 mb-6 text-center">ประกาศ/ข่าวสาร</h2>
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                ${allData.filter(d => d.type === 'poster').map(item => `
+                  <div class="bg-gradient-to-br from-blue-50 to-white rounded-xl p-6 shadow-md hover:shadow-xl transition">
+                    ${item.imageUrl ? `<img src="${item.imageUrl}" alt="${item.title}" class="w-full h-48 object-cover rounded-lg mb-4" onerror="this.src=''; this.alt='รูปภาพไม่สามารถโหลดได้'; this.style.display='none';">` : ''}
+                    <h3 class="text-xl font-bold text-blue-800 mb-2">${item.title}</h3>
+                    <p class="text-gray-600">${item.content || ''}</p>
+                  </div>
+                `).join('') || '<p class="text-center text-gray-500 col-span-full">ยังไม่มีประกาศในขณะนี้</p>'}
+              </div>
+              ${isAdmin ? `
+                <div class="text-center mt-6">
+                  <button onclick="openAdminModal('poster', 'home')" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition font-semibold">
+                    + เพิ่มประกาศ
+                  </button>
+                </div>
+              ` : ''}
+            </div>
+
+
+          </div>
+        </div>
+      `;
+    }
+
+    function renderAboutPage() {
+      document.getElementById('mainContent').innerHTML = `
+        <div class="max-w-6xl mx-auto px-4 py-16">
+          <div class="bg-white rounded-2xl shadow-xl p-8">
+            <div class="text-center mb-12">
+              <div class="text-6xl mb-6">🏫</div>
+              <h1 class="text-4xl font-bold text-blue-800 mb-6">เกี่ยวกับโรงเรียน</h1>
+            </div>
+
+            <div class="bg-gradient-to-r from-blue-50 to-white rounded-xl p-8 mb-8">
+              <h2 class="text-3xl font-bold text-blue-800 mb-6">ประวัติโรงเรียน</h2>
+              
+              <div class="space-y-6 text-gray-700 leading-relaxed">
+                <div>
+                  <h3 class="text-xl font-bold text-blue-700 mb-3">ข้อมูลทั่วไป</h3>
+                  <p class="mb-4">โรงเรียนสตรีพัทลุง มีรากฐานมาจากโรงเรียนประชาบาล คือ โรงเรียนโสภณพัทลุงกุลจัดตั้งชั้นมัธยมปีละชั้น จนถึงชั้นมัธยมศึกษาปีที่ 4 โดยมี นายจรัล ดิสรา ครูใหญ่ฝ่ายประชาบาลเป็นผู้ดูแล และได้เรียนรวมกันเรื่อยมาจนกระทั่งปี พ.ศ. 2471 กระทรวงศึกษาธิการได้แต่งตั้งนางสาวปริก เด่นดาวเสือ รักษาการในตำแหน่งครูใหญ่คนแรก</p>
+                </div>
+
+                <div>
+                  <h3 class="text-xl font-bold text-blue-700 mb-3">การสร้างอาคารและสถานที่ตั้ง</h3>
+                  <p class="mb-4">เมื่อ พ.ศ. 2482 กระทรวงศึกษาธิการได้ให้งบประมาณก่อสร้างอาคารโรงเรียนสตรีพัทลุงหลังแรก สมัยขุนวิจารณ์จรรยา เป็นศึกษาธิการจังหวัดพัทลุง งบประมาณก่อสร้าง 6,000 บาท ลักษณะอาคารเป็นอาคารไม้สองชั้นไม้ทาสีจำนวน 12 ห้องเรียน</p>
+                  
+                  <p class="mb-4">นักเรียนในระดับมัธยมจึงได้ย้ายมาอยู่ ณ สถานที่แห่งใหม่ คือสถานที่ในปัจจุบันเมื่อวันที่ 17 พฤษภาคม 2482 มีนักเรียนหญิงทั้งหมด 70 คน เปิดสอนตั้งแต่ชั้นมัธยมศึกษาปีที่ 1 ถึงชั้นมัธยมศึกษาปีที่ 6 จำนวน 6 ห้องเรียน (ในปัจจุบันอาคาร 1 หมดสภาพการใช้งานและได้รื้อถอนแล้วเมื่อเดือนธันวาคม พ.ศ. 2529)</p>
+                </div>
+
+                <div>
+                  <h3 class="text-xl font-bold text-blue-700 mb-3">การพัฒนาและเจริญเติบโต</h3>
+                  <p class="mb-4">โรงเรียนสตรีพัทลุงได้เจริญขึ้นเป็นลำดับจนถึง พ.ศ. 2502 โรงเรียนได้รับงบประมาณก่อสร้างอาคารเรียนจำนวน 120,000 บาท ก่อสร้างอาคารเรียนหลังที่ 2 และต่อเติมอีก 4 ห้องเรียน ทาสีเสร็จเรียบร้อยเมื่อ พ.ศ. 2506 จำนวน 1 หลัง</p>
+                  
+                  <p class="mb-4">หลังจากนั้นโรงเรียนได้รับงบประมาณก่อสร้างอาคารและอาคารประกอบการเพิ่มเติมอัตรากำลังครูและปริมาณนักเรียน นับตั้งแต่โรงเรียนสตรีพัทลุงได้ก่อตั้งขึ้นเมื่อ พ.ศ. 2477 เป็นต้นมา โรงเรียนได้เจริญเติบโตมาเป็นลำดับ</p>
+                </div>
+
+                <div>
+                  <h3 class="text-xl font-bold text-blue-700 mb-3">การรับนักเรียน</h3>
+                  <p class="mb-4">ในระยะแรกทางโรงเรียนรับเฉพาะนักเรียนหญิง ต่อมารับนักเรียนชายในระดับชั้นมัธยมศึกษาตอนปลาย ปีการศึกษา 2505 และเริ่มรับนักเรียนชายในระดับชั้นมัธยมศึกษาปีที่ 1 ปีการศึกษา 2528 จนถึงปัจจุบัน</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div class="bg-blue-50 rounded-xl p-6 text-center">
+                <div class="text-4xl mb-3">📅</div>
+                <h3 class="font-bold text-blue-800 mb-2">ก่อตั้ง</h3>
+                <p class="text-gray-700">พ.ศ. 2477</p>
+              </div>
+              <div class="bg-green-50 rounded-xl p-6 text-center">
+                <div class="text-4xl mb-3">🏗️</div>
+                <h3 class="font-bold text-green-800 mb-2">อาคารแรก</h3>
+                <p class="text-gray-700">พ.ศ. 2482</p>
+              </div>
+              <div class="bg-purple-50 rounded-xl p-6 text-center">
+                <div class="text-4xl mb-3">👥</div>
+                <h3 class="font-bold text-purple-800 mb-2">รับนักเรียนชาย</h3>
+                <p class="text-gray-700">พ.ศ. 2528</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderDepartmentsPage() {
+      document.getElementById('mainContent').innerHTML = `
+        <div class="max-w-7xl mx-auto px-4 py-16">
+          <h1 class="text-4xl font-bold text-blue-800 mb-12 text-center">กลุ่มงาน</h1>
+          
+          <!-- รองผู้อำนวยการ -->
+          <div class="bg-white rounded-2xl shadow-xl p-8 mb-12">
+            <h2 class="text-3xl font-bold text-blue-800 mb-8 text-center">รองผู้อำนวยการโรงเรียน</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              <div class="text-center">
+                <div class="w-32 h-32 mx-auto mb-4 rounded-full bg-gray-100 border-4 border-blue-200 flex items-center justify-center text-6xl">
+                  👤
+                </div>
+                <h3 class="font-bold text-blue-800 mb-2">รองผู้อำนวยการโรงเรียนสตรีพัทลุง</h3>
+                <p class="text-gray-600 text-sm">กลุ่มงานกิจการนักเรียน</p>
+              </div>
+              <div class="text-center">
+                <div class="w-32 h-32 mx-auto mb-4 rounded-full bg-gray-100 border-4 border-blue-200 flex items-center justify-center text-6xl">
+                  👤
+                </div>
+                <h3 class="font-bold text-blue-800 mb-2">รองผู้อำนวยการโรงเรียนสตรีพัทลุง</h3>
+                <p class="text-gray-600 text-sm">กลุ่มงานบริหารทั่วไป</p>
+              </div>
+              <div class="text-center">
+                <div class="w-32 h-32 mx-auto mb-4 rounded-full bg-gray-100 border-4 border-blue-200 flex items-center justify-center text-6xl">
+                  👤
+                </div>
+                <h3 class="font-bold text-blue-800 mb-2">รองผู้อำนวยการโรงเรียนสตรีพัทลุง</h3>
+                <p class="text-gray-600 text-sm">กลุ่มงานวิชาการ</p>
+              </div>
+              <div class="text-center">
+                <div class="w-32 h-32 mx-auto mb-4 rounded-full bg-gray-100 border-4 border-blue-200 flex items-center justify-center text-6xl">
+                  👤
+                </div>
+                <h3 class="font-bold text-blue-800 mb-2">รองผู้อำนวยการโรงเรียนสตรีพัทลุง</h3>
+                <p class="text-gray-600 text-sm">กลุ่มงานบริหารงบประมาณ</p>
+              </div>
+            </div>
+            ${isAdmin ? `
+              <div class="text-center mt-8">
+                <button onclick="openAdminModal('director', 'deputy')" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition font-semibold">
+                  + จัดการข้อมูลรองผู้อำนวยการ
+                </button>
+              </div>
+            ` : ''}
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div onclick="navigateToPage('dept-student')" class="bg-white rounded-xl p-8 shadow-lg hover:shadow-2xl transition cursor-pointer transform hover:scale-105">
+              <div class="text-5xl mb-4">👥</div>
+              <h2 class="text-2xl font-bold text-blue-800 mb-2">กลุ่มงานกิจการนักเรียน</h2>
+              <p class="text-gray-600">ดูแลกิจกรรมและสวัสดิภาพนักเรียน</p>
+            </div>
+            <div onclick="navigateToPage('dept-admin')" class="bg-white rounded-xl p-8 shadow-lg hover:shadow-2xl transition cursor-pointer transform hover:scale-105">
+              <div class="text-5xl mb-4">📋</div>
+              <h2 class="text-2xl font-bold text-blue-800 mb-2">กลุ่มงานบริหารทั่วไป</h2>
+              <p class="text-gray-600">บริหารจัดการงานทั่วไปของโรงเรียน</p>
+            </div>
+            <div onclick="navigateToPage('dept-academic')" class="bg-white rounded-xl p-8 shadow-lg hover:shadow-2xl transition cursor-pointer transform hover:scale-105">
+              <div class="text-5xl mb-4">📚</div>
+              <h2 class="text-2xl font-bold text-blue-800 mb-2">กลุ่มงานวิชาการ</h2>
+              <p class="text-gray-600">พัฒนาหลักสูตรและการเรียนการสอน</p>
+            </div>
+            <div onclick="navigateToPage('dept-budget')" class="bg-white rounded-xl p-8 shadow-lg hover:shadow-2xl transition cursor-pointer transform hover:scale-105">
+              <div class="text-5xl mb-4">💰</div>
+              <h2 class="text-2xl font-bold text-blue-800 mb-2">กลุ่มงานบริหารงบประมาณ</h2>
+              <p class="text-gray-600">จัดการงบประมาณและการเงิน</p>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderDepartmentDetail(deptType, deptName, icon) {
+      const deptData = allData.filter(d => d.type === 'department' && d.category === deptType);
+      const leader = deptData.find(d => d.title.includes('รองผู้อำนวยการ'));
+      const documents = deptData.filter(d => !d.title.includes('รองผู้อำนวยการ'));
+
+      document.getElementById('mainContent').innerHTML = `
+        <div class="max-w-7xl mx-auto px-4 py-16">
+          <div class="mb-8">
+            <button onclick="navigateToPage('departments')" class="text-blue-600 hover:text-blue-800 font-semibold">
+              ← กลับไปหน้ากลุ่มงาน
+            </button>
+          </div>
+
+          <div class="bg-white rounded-2xl shadow-xl p-8 mb-8">
+            <div class="text-center mb-8">
+              <div class="text-6xl mb-4">${icon}</div>
+              <h1 class="text-4xl font-bold text-blue-800">${deptName}</h1>
+            </div>
+
+            ${leader ? `
+              <div class="bg-gradient-to-r from-blue-50 to-white rounded-xl p-6 mb-8">
+                <h2 class="text-2xl font-bold text-blue-800 mb-4">รองผู้อำนวยการกลุ่มงาน</h2>
+                <div class="flex items-center space-x-6">
+                  ${leader.imageUrl ? `<img src="${leader.imageUrl}" alt="${leader.title}" class="w-32 h-32 rounded-full object-cover shadow-lg" onerror="this.src=''; this.alt='รูปภาพไม่สามารถโหลดได้'; this.style.display='none';">` : '<div class="w-32 h-32 rounded-full bg-blue-200 flex items-center justify-center text-4xl">👤</div>'}
+                  <div>
+                    <h3 class="text-xl font-bold text-gray-800">${leader.title}</h3>
+                    <p class="text-gray-600">${leader.content || ''}</p>
+                  </div>
+                  ${isAdmin ? `
+                    <div class="ml-auto space-x-2">
+                      <button onclick="editItem('${leader.id}')" class="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 transition">แก้ไข</button>
+                      <button onclick="deleteItem('${leader.id}')" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition">ลบ</button>
+                    </div>
+                  ` : ''}
+                </div>
+              </div>
+            ` : ''}
+
+            <div>
+              <h2 class="text-2xl font-bold text-blue-800 mb-4">เอกสารที่เกี่ยวข้อง</h2>
+              <div class="space-y-4">
+                ${documents.map(doc => `
+                  <div class="bg-gray-50 rounded-lg p-4 flex justify-between items-center hover:bg-gray-100 transition">
+                    <div>
+                      <h3 class="font-bold text-gray-800">${doc.title}</h3>
+                      <p class="text-gray-600 text-sm">${doc.content || ''}</p>
+                    </div>
+                    ${isAdmin ? `
+                      <div class="space-x-2">
+                        <button onclick="editItem('${doc.id}')" class="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600 transition text-sm">แก้ไข</button>
+                        <button onclick="deleteItem('${doc.id}')" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition text-sm">ลบ</button>
+                      </div>
+                    ` : ''}
+                  </div>
+                `).join('') || '<p class="text-gray-500 text-center py-8">ยังไม่มีเอกสาร</p>'}
+              </div>
+              ${isAdmin ? `
+                <div class="text-center mt-6">
+                  <button onclick="openAdminModal('department', '${deptType}')" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition font-semibold">
+                    + เพิ่มข้อมูล
+                  </button>
+                </div>
+              ` : ''}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    window.renderDeptStudentPage = () => renderDepartmentDetail('student', 'กลุ่มงานกิจการนักเรียน', '👥');
+    window.renderDeptAdminPage = () => renderDepartmentDetail('admin', 'กลุ่มงานบริหารทั่วไป', '📋');
+    window.renderDeptAcademicPage = () => renderDepartmentDetail('academic', 'กลุ่มงานวิชาการ', '📚');
+    window.renderDeptBudgetPage = () => renderDepartmentDetail('budget', 'กลุ่มงานบริหารงบประมาณ', '💰');
+
+    function renderSubjectsPage() {
+      const subjects = [
+        { id: 'thai', name: 'ภาษาไทย', icon: '📖' },
+        { id: 'math', name: 'คณิตศาสตร์', icon: '🔢' },
+        { id: 'science', name: 'วิทยาศาสตร์และเทคโนโลยี', icon: '🔬' },
+        { id: 'social', name: 'สังคมศึกษา ศาสนา และวัฒนธรรม', icon: '🌏' },
+        { id: 'health', name: 'สุขศึกษาและพลศึกษา', icon: '⚽' },
+        { id: 'language', name: 'ภาษาต่างประเทศ', icon: '🌐' },
+        { id: 'art', name: 'ศิลปะ', icon: '🎨' },
+        { id: 'career', name: 'การงานอาชีพ', icon: '🔧' },
+        { id: 'guidance', name: 'งานแนะแนว', icon: '🎯' }
+      ];
+
+      document.getElementById('mainContent').innerHTML = `
+        <div class="max-w-7xl mx-auto px-4 py-16">
+          <h1 class="text-4xl font-bold text-blue-800 mb-12 text-center">กลุ่มสาระการเรียนรู้</h1>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            ${subjects.map(subject => `
+              <div onclick="navigateToPage('subject-${subject.id}')" class="bg-white rounded-xl p-6 shadow-lg hover:shadow-2xl transition cursor-pointer transform hover:scale-105">
+                <div class="text-5xl mb-4">${subject.icon}</div>
+                <h2 class="text-xl font-bold text-blue-800">${subject.name}</h2>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    function renderSubjectDetail(subjectId, subjectName, icon) {
+      const subjectData = allData.filter(d => d.type === 'subject' && d.category === subjectId);
+      const head = subjectData.find(d => d.title.includes('หัวหน้า'));
+      const teachers = subjectData.filter(d => d.title.includes('คณะครู'));
+
+      document.getElementById('mainContent').innerHTML = `
+        <div class="max-w-7xl mx-auto px-4 py-16">
+          <div class="mb-8">
+            <button onclick="navigateToPage('subjects')" class="text-blue-600 hover:text-blue-800 font-semibold">
+              ← กลับไปหน้ากลุ่มสาระการเรียนรู้
+            </button>
+          </div>
+
+          <div class="bg-white rounded-2xl shadow-xl p-8">
+            <div class="text-center mb-8">
+              <div class="text-6xl mb-4">${icon}</div>
+              <h1 class="text-4xl font-bold text-blue-800">${subjectName}</h1>
+            </div>
+
+            ${head ? `
+              <div class="bg-gradient-to-r from-blue-50 to-white rounded-xl p-6 mb-8">
+                <h2 class="text-2xl font-bold text-blue-800 mb-4">${subjectId === 'guidance' ? 'หัวหน้างานแนะแนว' : 'หัวหน้ากลุ่มสาระการเรียนรู้'}</h2>
+                <div class="flex items-center space-x-6">
+                  ${head.imageUrl ? `<img src="${head.imageUrl}" alt="${head.title}" class="w-32 h-32 rounded-full object-cover shadow-lg" onerror="this.src=''; this.alt='รูปภาพไม่สามารถโหลดได้'; this.style.display='none';">` : '<div class="w-32 h-32 rounded-full bg-blue-200 flex items-center justify-center text-4xl">👤</div>'}
+                  <div>
+                    <h3 class="text-xl font-bold text-gray-800">${head.title}</h3>
+                    <p class="text-gray-600">${head.content || ''}</p>
+                  </div>
+                  ${isAdmin ? `
+                    <div class="ml-auto space-x-2">
+                      <button onclick="editItem('${head.id}')" class="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 transition">แก้ไข</button>
+                      <button onclick="deleteItem('${head.id}')" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition">ลบ</button>
+                    </div>
+                  ` : ''}
+                </div>
+              </div>
+            ` : ''}
+
+            <div>
+              <h2 class="text-2xl font-bold text-blue-800 mb-4">คณะครู</h2>
+              <div class="space-y-4">
+                ${teachers.map(teacher => `
+                  <div class="bg-gray-50 rounded-lg p-4 flex justify-between items-center hover:bg-gray-100 transition">
+                    <div>
+                      <h3 class="font-bold text-gray-800">${teacher.title}</h3>
+                      <p class="text-gray-600 text-sm">${teacher.content || ''}</p>
+                    </div>
+                    ${isAdmin ? `
+                      <div class="space-x-2">
+                        <button onclick="editItem('${teacher.id}')" class="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600 transition text-sm">แก้ไข</button>
+                        <button onclick="deleteItem('${teacher.id}')" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition text-sm">ลบ</button>
+                      </div>
+                    ` : ''}
+                  </div>
+                `).join('') || '<p class="text-gray-500 text-center py-8">ยังไม่มีข้อมูลคณะครู</p>'}
+              </div>
+              ${isAdmin ? `
+                <div class="text-center mt-6">
+                  <button onclick="openAdminModal('subject', '${subjectId}')" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition font-semibold">
+                    + เพิ่มข้อมูล
+                  </button>
+                </div>
+              ` : ''}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    window.renderSubjectThaiPage = () => renderSubjectDetail('thai', 'ภาษาไทย', '📖');
+    window.renderSubjectMathPage = () => renderSubjectDetail('math', 'คณิตศาสตร์', '🔢');
+    window.renderSubjectSciencePage = () => renderSubjectDetail('science', 'วิทยาศาสตร์และเทคโนโลยี', '🔬');
+    window.renderSubjectSocialPage = () => renderSubjectDetail('social', 'สังคมศึกษา ศาสนา และวัฒนธรรม', '🌏');
+    window.renderSubjectHealthPage = () => renderSubjectDetail('health', 'สุขศึกษาและพลศึกษา', '⚽');
+    window.renderSubjectLanguagePage = () => renderSubjectDetail('language', 'ภาษาต่างประเทศ', '🌐');
+    window.renderSubjectArtPage = () => renderSubjectDetail('art', 'ศิลปะ', '🎨');
+    window.renderSubjectCareerPage = () => renderSubjectDetail('career', 'การงานอาชีพ', '🔧');
+    window.renderSubjectGuidancePage = () => renderSubjectDetail('guidance', 'งานแนะแนว', '🎯');
+
+    function renderDocumentsPage() {
+      document.getElementById('mainContent').innerHTML = `
+        <div class="max-w-7xl mx-auto px-4 py-16">
+          <h1 class="text-4xl font-bold text-blue-800 mb-12 text-center">เอกสาร</h1>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div onclick="navigateToPage('doc-schedule')" class="bg-white rounded-xl p-8 shadow-lg hover:shadow-2xl transition cursor-pointer transform hover:scale-105">
+              <div class="text-5xl mb-4">📅</div>
+              <h2 class="text-2xl font-bold text-blue-800 mb-2">ตารางเรียน/ตารางสอน</h2>
+              <p class="text-gray-600">ตารางเรียนและตารางสอนของนักเรียนและครู</p>
+            </div>
+            <div onclick="navigateToPage('doc-students')" class="bg-white rounded-xl p-8 shadow-lg hover:shadow-2xl transition cursor-pointer transform hover:scale-105">
+              <div class="text-5xl mb-4">👨‍🎓</div>
+              <h2 class="text-2xl font-bold text-blue-800 mb-2">รายชื่อนักเรียน</h2>
+              <p class="text-gray-600">รายชื่อนักเรียนแต่ละห้องเรียน</p>
+            </div>
+            <div onclick="navigateToPage('doc-exam')" class="bg-white rounded-xl p-8 shadow-lg hover:shadow-2xl transition cursor-pointer transform hover:scale-105">
+              <div class="text-5xl mb-4">📝</div>
+              <h2 class="text-2xl font-bold text-blue-800 mb-2">ตารางสอบ</h2>
+              <p class="text-gray-600">ตารางสอบประจำภาคเรียน</p>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderDocumentDetail(docType, docName, icon) {
+      const docData = allData.filter(d => d.type === 'document' && d.category === docType);
+
+      document.getElementById('mainContent').innerHTML = `
+        <div class="max-w-7xl mx-auto px-4 py-16">
+          <div class="mb-8">
+            <button onclick="navigateToPage('documents')" class="text-blue-600 hover:text-blue-800 font-semibold">
+              ← กลับไปหน้าเอกสาร
+            </button>
+          </div>
+
+          <div class="bg-white rounded-2xl shadow-xl p-8">
+            <div class="text-center mb-8">
+              <div class="text-6xl mb-4">${icon}</div>
+              <h1 class="text-4xl font-bold text-blue-800">${docName}</h1>
+            </div>
+
+            <div class="space-y-4">
+              ${docData.map(doc => `
+                <div class="bg-gray-50 rounded-lg p-6 hover:bg-gray-100 transition">
+                  <div class="flex justify-between items-start">
+                    <div class="flex-1">
+                      <h3 class="text-xl font-bold text-gray-800 mb-2">${doc.title}</h3>
+                      <p class="text-gray-600 mb-3">${doc.content || ''}</p>
+                      ${doc.imageUrl ? `<a href="${doc.imageUrl}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 font-semibold">📎 ดูเอกสาร</a>` : ''}
+                    </div>
+                    ${isAdmin ? `
+                      <div class="space-x-2 ml-4">
+                        <button onclick="editItem('${doc.id}')" class="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 transition">แก้ไข</button>
+                        <button onclick="deleteItem('${doc.id}')" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition">ลบ</button>
+                      </div>
+                    ` : ''}
+                  </div>
+                </div>
+              `).join('') || '<p class="text-gray-500 text-center py-8">ยังไม่มีเอกสาร</p>'}
+            </div>
+
+            ${isAdmin ? `
+              <div class="text-center mt-8">
+                <button onclick="openAdminModal('document', '${docType}')" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition font-semibold">
+                  + เพิ่มเอกสาร
+                </button>
+              </div>
+            ` : ''}
+          </div>
+        </div>
+      `;
+    }
+
+    window.renderDocSchedulePage = () => renderDocumentDetail('schedule', 'ตารางเรียน/ตารางสอน', '📅');
+    window.renderDocStudentsPage = () => renderDocumentDetail('students', 'รายชื่อนักเรียน', '👨‍🎓');
+    window.renderDocExamPage = () => renderDocumentDetail('exam', 'ตารางสอบ', '📝');
+
+    function renderAdmissionPage() {
+      document.getElementById('mainContent').innerHTML = `
+        <div class="max-w-7xl mx-auto px-4 py-16">
+          <h1 class="text-4xl font-bold text-blue-800 mb-12 text-center">งานรับนักเรียน</h1>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+            <div class="bg-white rounded-xl p-8 shadow-lg">
+              <h2 class="text-2xl font-bold text-blue-800 mb-6">ห้องเรียนพิเศษ</h2>
+              <div class="space-y-4">
+                <div class="bg-blue-50 rounded-lg p-4 hover:bg-blue-100 transition cursor-pointer">
+                  <h3 class="font-bold text-blue-800">📢 ประกาศรับนักเรียน</h3>
+                  ${allData.filter(d => d.type === 'admission' && d.category === 'special-announce').map(item => `
+                    <div class="mt-2 flex justify-between items-start">
+                      <div>
+                        <p class="text-gray-700">${item.title}</p>
+                        <p class="text-sm text-gray-600">${item.content || ''}</p>
+                      </div>
+                      ${isAdmin ? `
+                        <div class="space-x-2">
+                          <button onclick="editItem('${item.id}')" class="bg-yellow-500 text-white px-2 py-1 rounded text-xs">แก้ไข</button>
+                          <button onclick="deleteItem('${item.id}')" class="bg-red-500 text-white px-2 py-1 rounded text-xs">ลบ</button>
+                        </div>
+                      ` : ''}
+                    </div>
+                  `).join('') || '<p class="text-gray-500 text-sm mt-2">ยังไม่มีประกาศ</p>'}
+                  ${isAdmin ? `<button onclick="openAdminModal('admission', 'special-announce')" class="mt-3 text-blue-600 text-sm font-semibold">+ เพิ่มประกาศ</button>` : ''}
+                </div>
+
+                <div class="bg-green-50 rounded-lg p-4 hover:bg-green-100 transition cursor-pointer">
+                  <h3 class="font-bold text-green-800">✅ ประกาศผลการคัดเลือก</h3>
+                  ${allData.filter(d => d.type === 'admission' && d.category === 'special-result').map(item => `
+                    <div class="mt-2 flex justify-between items-start">
+                      <div>
+                        <p class="text-gray-700">${item.title}</p>
+                        <p class="text-sm text-gray-600">${item.content || ''}</p>
+                      </div>
+                      ${isAdmin ? `
+                        <div class="space-x-2">
+                          <button onclick="editItem('${item.id}')" class="bg-yellow-500 text-white px-2 py-1 rounded text-xs">แก้ไข</button>
+                          <button onclick="deleteItem('${item.id}')" class="bg-red-500 text-white px-2 py-1 rounded text-xs">ลบ</button>
+                        </div>
+                      ` : ''}
+                    </div>
+                  `).join('') || '<p class="text-gray-500 text-sm mt-2">ยังไม่มีประกาศผล</p>'}
+                  ${isAdmin ? `<button onclick="openAdminModal('admission', 'special-result')" class="mt-3 text-green-600 text-sm font-semibold">+ เพิ่มประกาศผล</button>` : ''}
+                </div>
+
+                <div class="bg-purple-50 rounded-lg p-4 hover:bg-purple-100 transition cursor-pointer">
+                  <h3 class="font-bold text-purple-800">📝 ระบบรับสมัคร</h3>
+                  ${allData.filter(d => d.type === 'admission' && d.category === 'special-system').map(item => `
+                    <div class="mt-2 flex justify-between items-start">
+                      <div>
+                        <p class="text-gray-700">${item.title}</p>
+                        ${item.imageUrl ? `<a href="${item.imageUrl}" target="_blank" rel="noopener noreferrer" class="text-purple-600 text-sm">เข้าสู่ระบบ →</a>` : ''}
+                      </div>
+                      ${isAdmin ? `
+                        <div class="space-x-2">
+                          <button onclick="editItem('${item.id}')" class="bg-yellow-500 text-white px-2 py-1 rounded text-xs">แก้ไข</button>
+                          <button onclick="deleteItem('${item.id}')" class="bg-red-500 text-white px-2 py-1 rounded text-xs">ลบ</button>
+                        </div>
+                      ` : ''}
+                    </div>
+                  `).join('') || '<p class="text-gray-500 text-sm mt-2">ยังไม่มีระบบรับสมัคร</p>'}
+                  ${isAdmin ? `<button onclick="openAdminModal('admission', 'special-system')" class="mt-3 text-purple-600 text-sm font-semibold">+ เพิ่มระบบ</button>` : ''}
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-white rounded-xl p-8 shadow-lg">
+              <h2 class="text-2xl font-bold text-blue-800 mb-6">ห้องเรียนปกติ</h2>
+              <div class="space-y-4">
+                <div class="bg-blue-50 rounded-lg p-4 hover:bg-blue-100 transition cursor-pointer">
+                  <h3 class="font-bold text-blue-800">📢 ประกาศรับนักเรียน</h3>
+                  ${allData.filter(d => d.type === 'admission' && d.category === 'normal-announce').map(item => `
+                    <div class="mt-2 flex justify-between items-start">
+                      <div>
+                        <p class="text-gray-700">${item.title}</p>
+                        <p class="text-sm text-gray-600">${item.content || ''}</p>
+                      </div>
+                      ${isAdmin ? `
+                        <div class="space-x-2">
+                          <button onclick="editItem('${item.id}')" class="bg-yellow-500 text-white px-2 py-1 rounded text-xs">แก้ไข</button>
+                          <button onclick="deleteItem('${item.id}')" class="bg-red-500 text-white px-2 py-1 rounded text-xs">ลบ</button>
+                        </div>
+                      ` : ''}
+                    </div>
+                  `).join('') || '<p class="text-gray-500 text-sm mt-2">ยังไม่มีประกาศ</p>'}
+                  ${isAdmin ? `<button onclick="openAdminModal('admission', 'normal-announce')" class="mt-3 text-blue-600 text-sm font-semibold">+ เพิ่มประกาศ</button>` : ''}
+                </div>
+
+                <div class="bg-green-50 rounded-lg p-4 hover:bg-green-100 transition cursor-pointer">
+                  <h3 class="font-bold text-green-800">✅ ประกาศผลการคัดเลือก</h3>
+                  ${allData.filter(d => d.type === 'admission' && d.category === 'normal-result').map(item => `
+                    <div class="mt-2 flex justify-between items-start">
+                      <div>
+                        <p class="text-gray-700">${item.title}</p>
+                        <p class="text-sm text-gray-600">${item.content || ''}</p>
+                      </div>
+                      ${isAdmin ? `
+                        <div class="space-x-2">
+                          <button onclick="editItem('${item.id}')" class="bg-yellow-500 text-white px-2 py-1 rounded text-xs">แก้ไข</button>
+                          <button onclick="deleteItem('${item.id}')" class="bg-red-500 text-white px-2 py-1 rounded text-xs">ลบ</button>
+                        </div>
+                      ` : ''}
+                    </div>
+                  `).join('') || '<p class="text-gray-500 text-sm mt-2">ยังไม่มีประกาศผล</p>'}
+                  ${isAdmin ? `<button onclick="openAdminModal('admission', 'normal-result')" class="mt-3 text-green-600 text-sm font-semibold">+ เพิ่มประกาศผล</button>` : ''}
+                </div>
+
+                <div class="bg-purple-50 rounded-lg p-4 hover:bg-purple-100 transition cursor-pointer">
+                  <h3 class="font-bold text-purple-800">📝 ระบบรับสมัคร</h3>
+                  ${allData.filter(d => d.type === 'admission' && d.category === 'normal-system').map(item => `
+                    <div class="mt-2 flex justify-between items-start">
+                      <div>
+                        <p class="text-gray-700">${item.title}</p>
+                        ${item.imageUrl ? `<a href="${item.imageUrl}" target="_blank" rel="noopener noreferrer" class="text-purple-600 text-sm">เข้าสู่ระบบ →</a>` : ''}
+                      </div>
+                      ${isAdmin ? `
+                        <div class="space-x-2">
+                          <button onclick="editItem('${item.id}')" class="bg-yellow-500 text-white px-2 py-1 rounded text-xs">แก้ไข</button>
+                          <button onclick="deleteItem('${item.id}')" class="bg-red-500 text-white px-2 py-1 rounded text-xs">ลบ</button>
+                        </div>
+                      ` : ''}
+                    </div>
+                  `).join('') || '<p class="text-gray-500 text-sm mt-2">ยังไม่มีระบบรับสมัคร</p>'}
+                  ${isAdmin ? `<button onclick="openAdminModal('admission', 'normal-system')" class="mt-3 text-purple-600 text-sm font-semibold">+ เพิ่มระบบ</button>` : ''}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderContactPage() {
+      const config = window.elementSdk?.config || defaultConfig;
+      document.getElementById('mainContent').innerHTML = `
+        <div class="max-w-4xl mx-auto px-4 py-16">
+          <div class="bg-white rounded-2xl shadow-xl p-8">
+            <h1 class="text-4xl font-bold text-blue-800 mb-8 text-center">ติดต่อเรา</h1>
+            
+            <div class="mb-8">
+              <h2 class="text-2xl font-bold text-blue-800 mb-4">ที่อยู่</h2>
+              <p class="text-gray-700 leading-relaxed">${config.school_address || defaultConfig.school_address}</p>
+            </div>
+
+            <div class="mb-8">
+              <h2 class="text-2xl font-bold text-blue-800 mb-4">ข้อมูลติดต่อ</h2>
+              <div class="space-y-3 mb-6">
+                <div class="flex items-center space-x-3 p-3 bg-blue-50 rounded-lg">
+                  <div class="text-2xl">📞</div>
+                  <div>
+                    <h3 class="font-bold text-blue-800">โทรศัพท์</h3>
+                    <p class="text-gray-700">074-613-023</p>
+                  </div>
+                </div>
+                <div class="flex items-center space-x-3 p-3 bg-blue-50 rounded-lg">
+                  <div class="text-2xl">📧</div>
+                  <div>
+                    <h3 class="font-bold text-blue-800">อีเมล</h3>
+                    <p class="text-gray-700">satriphatthalung@spt.ac.th</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-8">
+              <h2 class="text-2xl font-bold text-blue-800 mb-4">ช่องทางโซเชียลมีเดีย</h2>
+              <div class="space-y-4">
+                <a href="https://www.facebook.com/spt.ac.th" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-3 p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition">
+                  <div class="text-3xl">📘</div>
+                  <div>
+                    <h3 class="font-bold text-blue-800">Facebook</h3>
+                    <p class="text-sm text-gray-600">โรงเรียนสตรีพัทลุง</p>
+                  </div>
+                </a>
+
+                <a href="https://www.facebook.com/photoavspt/" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-3 p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition">
+                  <div class="text-3xl">📷</div>
+                  <div>
+                    <h3 class="font-bold text-blue-800">Facebook</h3>
+                    <p class="text-sm text-gray-600">ตากล้องสตรีพัทลุง</p>
+                  </div>
+                </a>
+
+                <a href="https://www.instagram.com/sptschool_official?igsh=MWM0NWl2MmF1cXhvdw==" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-3 p-4 bg-pink-50 rounded-lg hover:bg-pink-100 transition">
+                  <div class="text-3xl">📸</div>
+                  <div>
+                    <h3 class="font-bold text-pink-800">Instagram</h3>
+                    <p class="text-sm text-gray-600">@sptschool_official</p>
+                  </div>
+                </a>
+
+                <a href="https://www.tiktok.com/@spt_school?_t=ZS-90tOrK4pFtH&_r=1" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-3 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition">
+                  <div class="text-3xl">🎵</div>
+                  <div>
+                    <h3 class="font-bold text-gray-800">TikTok</h3>
+                    <p class="text-sm text-gray-600">@spt_school</p>
+                  </div>
+                </a>
+              </div>
+            </div>
+
+            <div class="bg-blue-50 rounded-xl p-6 text-center">
+              <p class="text-gray-700">ติดตามข่าวสารและกิจกรรมของโรงเรียนได้ทางช่องทางต่างๆ ด้านบน</p>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderLoginPage() {
+      document.getElementById('mainContent').innerHTML = `
+        <div class="max-w-md mx-auto px-4 py-16">
+          <div class="bg-white rounded-2xl shadow-xl p-8">
+            <h1 class="text-3xl font-bold text-blue-800 mb-8 text-center">เข้าสู่ระบบผู้ดูแล</h1>
+            
+            ${isAdmin ? `
+              <div class="text-center">
+                <div class="text-5xl mb-4">✅</div>
+                <p class="text-xl text-green-600 font-semibold mb-6">เข้าสู่ระบบแล้ว</p>
+                <button onclick="handleLogout()" class="bg-red-500 text-white px-6 py-3 rounded-lg hover:bg-red-600 transition font-semibold w-full">
+                  ออกจากระบบ
+                </button>
+              </div>
+            ` : `
+              <form id="loginForm" class="space-y-6">
+                <div>
+                  <label class="block text-gray-700 font-semibold mb-2">อีเมล</label>
+                  <input type="email" id="loginEmail" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500" required>
+                </div>
+                <div>
+                  <label class="block text-gray-700 font-semibold mb-2">รหัสผ่าน</label>
+                  <input type="password" id="loginPassword" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500" required>
+                </div>
+                <button type="submit" class="w-full bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition font-semibold">
+                  เข้าสู่ระบบ
+                </button>
+              </form>
+            `}
+          </div>
+        </div>
+      `;
+
+      if (!isAdmin) {
+        document.getElementById('loginForm').addEventListener('submit', handleLogin);
+      }
+    }
+
+    async function handleLogin(e) {
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
+
+      try {
+        await auth.signInWithEmailAndPassword(email, password);
+        showToast('เข้าสู่ระบบสำเร็จ');
+        navigateToPage('home');
+      } catch (error) {
+        showToast('เข้าสู่ระบบไม่สำเร็จ กรุณาตรวจสอบอีเมลและรหัสผ่าน');
+      }
+    }
+
+    async function handleLogout() {
+      try {
+        await auth.signOut();
+        showToast('ออกจากระบบสำเร็จ');
+        navigateToPage('home');
+      } catch (error) {
+        showToast('เกิดข้อผิดพลาดในการออกจากระบบ');
+      }
+    }
+
+    function openAdminModal(type, category) {
+      if (!isAdmin) {
+        showToast('กรุณาเข้าสู่ระบบก่อน');
+        return;
+      }
+
+      currentEditType = type;
+      currentEditCategory = category;
+      document.getElementById('editId').value = '';
+      document.getElementById('itemTitle').value = '';
+      document.getElementById('itemContent').value = '';
+      document.getElementById('itemImage').value = '';
+      document.getElementById('adminModal').classList.add('active');
+    }
+
+    async function editItem(id) {
+      const item = allData.find(d => d.id === id);
+      if (!item) return;
+
+      currentEditType = item.type;
+      currentEditCategory = item.category;
+      document.getElementById('editId').value = item.id;
+      document.getElementById('itemTitle').value = item.title;
+      document.getElementById('itemContent').value = item.content || '';
+      document.getElementById('itemImage').value = item.imageUrl || '';
+      document.getElementById('adminModal').classList.add('active');
+    }
+
+    async function deleteItem(id) {
+      if (!isAdmin) return;
+
+      const item = allData.find(d => d.id === id);
+      if (!item) return;
+
+      const confirmDiv = document.createElement('div');
+      confirmDiv.className = 'modal active';
+      confirmDiv.innerHTML = `
+        <div class="modal-content max-w-md">
+          <h2 class="text-2xl font-bold text-red-600 mb-4">ยืนยันการลบ</h2>
+          <p class="text-gray-700 mb-6">คุณต้องการลบ "${item.title}" ใช่หรือไม่?</p>
+          <div class="flex space-x-4">
+            <button id="confirmDelete" class="flex-1 bg-red-500 text-white px-6 py-3 rounded-lg hover:bg-red-600 transition font-semibold">
+              ลบ
+            </button>
+            <button id="cancelDelete" class="flex-1 bg-gray-300 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-400 transition font-semibold">
+              ยกเลิก
+            </button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(confirmDiv);
+
+      document.getElementById('confirmDelete').addEventListener('click', async () => {
+        const result = await window.dataSdk.delete(item);
+        if (result.isOk) {
+          showToast('ลบข้อมูลสำเร็จ');
+        } else {
+          showToast('เกิดข้อผิดพลาดในการลบข้อมูล');
+        }
+        confirmDiv.remove();
+      });
+
+      document.getElementById('cancelDelete').addEventListener('click', () => {
+        confirmDiv.remove();
+      });
+    }
+
+    document.getElementById('closeModal').addEventListener('click', () => {
+      document.getElementById('adminModal').classList.remove('active');
+    });
+
+    document.getElementById('cancelBtn').addEventListener('click', () => {
+      document.getElementById('adminModal').classList.remove('active');
+    });
+
+    document.getElementById('adminForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      if (allData.length >= 999) {
+        showToast('ถึงขีดจำกัดจำนวนข้อมูล (999 รายการ) กรุณาลบข้อมูลบางรายการก่อน');
+        return;
+      }
+
+      const editId = document.getElementById('editId').value;
+      const title = document.getElementById('itemTitle').value;
+      const content = document.getElementById('itemContent').value;
+      const imageUrl = document.getElementById('itemImage').value;
+
+      const submitBtn = e.target.querySelector('button[type="submit"]');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'กำลังบันทึก...';
+
+      if (editId) {
+        const item = allData.find(d => d.id === editId);
+        if (item) {
+          item.title = title;
+          item.content = content;
+          item.imageUrl = imageUrl;
+          const result = await window.dataSdk.update(item);
+          if (result.isOk) {
+            showToast('แก้ไขข้อมูลสำเร็จ');
+            document.getElementById('adminModal').classList.remove('active');
+          } else {
+            showToast('เกิดข้อผิดพลาดในการแก้ไขข้อมูล');
+          }
+        }
+      } else {
+        const newItem = {
+          id: Date.now().toString(),
+          type: currentEditType,
+          category: currentEditCategory,
+          title: title,
+          content: content,
+          imageUrl: imageUrl,
+          order: allData.length,
+          createdAt: new Date().toISOString()
+        };
+
+        const result = await window.dataSdk.create(newItem);
+        if (result.isOk) {
+          showToast('เพิ่มข้อมูลสำเร็จ');
+          document.getElementById('adminModal').classList.remove('active');
+        } else {
+          showToast('เกิดข้อผิดพลาดในการเพิ่มข้อมูล');
+        }
+      }
+
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'บันทึก';
+    });
+
+    window.renderHomePage = renderHomePage;
+    window.renderAboutPage = renderAboutPage;
+    window.renderDepartmentsPage = renderDepartmentsPage;
+    window.renderSubjectsPage = renderSubjectsPage;
+    window.renderDocumentsPage = renderDocumentsPage;
+    window.renderAdmissionPage = renderAdmissionPage;
+    window.renderContactPage = renderContactPage;
+    window.renderLoginPage = renderLoginPage;
+    window.openAdminModal = openAdminModal;
+    window.editItem = editItem;
+    window.deleteItem = deleteItem;
+    window.handleLogout = handleLogout;
+
+    initApp();
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'99ad45fff4c87337',t:'MTc2MjUyMzE1MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
