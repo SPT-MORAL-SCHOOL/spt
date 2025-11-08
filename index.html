@@ -1,0 +1,1053 @@
+<!doctype html>
+<html lang="th">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>โรงเรียนคุณธรรม สพฐ. โรงเรียนสตรีพัทลุง</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="/_sdk/data_sdk.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    body {
+      box-sizing: border-box;
+      font-family: 'Sarabun', sans-serif;
+    }
+    * {
+      box-sizing: border-box;
+    }
+    .nav-link {
+      position: relative;
+      transition: color 0.3s ease;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #2563eb;
+      transition: width 0.3s ease;
+    }
+    .nav-link:hover::after,
+    .nav-link.active::after {
+      width: 100%;
+    }
+    .card-hover {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+    }
+    .fade-in {
+      animation: fadeIn 0.5s ease-in;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .modal {
+      backdrop-filter: blur(4px);
+    }
+    .loading {
+      opacity: 0.6;
+      pointer-events: none;
+    }
+    .spinner {
+      border: 2px solid #f3f3f3;
+      border-top: 2px solid #3498db;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+ </head>
+ <body class="bg-white"><!-- Navigation -->
+  <nav class="bg-white shadow-md sticky top-0 z-50">
+   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-20">
+     <div class="flex items-center space-x-4"><img src="https://img5.pic.in.th/file/secure-sv1/IMG_0310f4b22b3a3a8d0946.jpeg" alt="โลโก้โรงเรียนสตรีพัทลุง" class="h-14 w-14 object-contain" onerror="this.src=''; this.style.display='none';"> <img src="https://img5.pic.in.th/file/secure-sv1/IMG_25650953161d1c1bbdd8.jpeg" alt="โลโก้โรงเรียนคุณธรรม" class="h-14 w-14 object-contain" onerror="this.src=''; this.style.display='none';">
+      <div>
+       <h1 id="school-name" class="text-xl font-bold text-gray-800">โรงเรียนสตรีพัทลุง</h1>
+       <p class="text-sm text-gray-600">โรงเรียนคุณธรรม สพฐ.</p>
+      </div>
+     </div>
+     <div class="hidden md:flex space-x-8"><a href="#" class="nav-link active text-gray-700 hover:text-blue-600 font-medium pb-1" data-page="home">หน้าหลัก</a> <a href="#" class="nav-link text-gray-700 hover:text-blue-600 font-medium pb-1" data-page="students">นักเรียนแกนนำ</a> <a href="#" class="nav-link text-gray-700 hover:text-blue-600 font-medium pb-1" data-page="committee">คณะกรรมการ</a> <a href="#" class="nav-link text-gray-700 hover:text-blue-600 font-medium pb-1" data-page="admin">ผู้ดูแลระบบ</a>
+     </div><button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg hover:bg-gray-100">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+      </svg></button>
+    </div>
+    <div id="mobile-menu" class="hidden md:hidden pb-4"><a href="#" class="block py-2 text-gray-700 hover:text-blue-600 font-medium" data-page="home">หน้าหลัก</a> <a href="#" class="block py-2 text-gray-700 hover:text-blue-600 font-medium" data-page="students">นักเรียนแกนนำ</a> <a href="#" class="block py-2 text-gray-700 hover:text-blue-600 font-medium" data-page="committee">คณะกรรมการ</a> <a href="#" class="block py-2 text-gray-700 hover:text-blue-600 font-medium" data-page="admin">ผู้ดูแลระบบ</a>
+    </div>
+   </div>
+  </nav><!-- Main Content -->
+  <main id="main-content" class="min-h-screen"><!-- Home Page -->
+   <div id="home-page" class="page-content fade-in"><!-- Hero Section -->
+    <div class="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-20">
+     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 id="hero-title" class="text-5xl font-bold mb-4">โรงเรียนคุณธรรม สพฐ.</h2>
+      <p id="hero-subtitle" class="text-2xl mb-8">รักสามัคคี ซื่อสัตย์สุจริต รับผิดชอบ สู่จิตสาธารณะ</p>
+      <p id="welcome-text" class="text-xl">ยินดีต้อนรับสู่ระบบรับสมัคร</p>
+     </div>
+    </div><!-- Features Section -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+     <div class="grid md:grid-cols-2 gap-8">
+      <div class="card-hover bg-white rounded-2xl shadow-lg p-8 border border-gray-100">
+       <div class="flex items-center mb-4">
+        <div class="bg-blue-100 rounded-full p-3 mr-4">
+         <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+         </svg>
+        </div>
+        <h3 class="text-2xl font-bold text-gray-800">นักเรียนแกนนำ</h3>
+       </div>
+       <p class="text-gray-600 mb-6">ระบบรับสมัครและประกาศผลสำหรับนักเรียนแกนนำโรงเรียนคุณธรรม</p><a href="#" class="inline-block bg-blue-600 text-white px-6 py-3 rounded-full font-medium hover:bg-blue-700 transition" data-page="students">เข้าสู่ระบบรับสมัคร →</a>
+      </div>
+      <div class="card-hover bg-white rounded-2xl shadow-lg p-8 border border-gray-100">
+       <div class="flex items-center mb-4">
+        <div class="bg-green-100 rounded-full p-3 mr-4">
+         <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+         </svg>
+        </div>
+        <h3 class="text-2xl font-bold text-gray-800">คณะกรรมการ</h3>
+       </div>
+       <p class="text-gray-600 mb-6">ระบบรับสมัครและประกาศผลสำหรับคณะกรรมการโรงเรียนคุณธรรม</p><a href="#" class="inline-block bg-green-600 text-white px-6 py-3 rounded-full font-medium hover:bg-green-700 transition" data-page="committee">เข้าสู่ระบบรับสมัคร →</a>
+      </div>
+     </div><!-- Values Section -->
+     <div class="mt-16">
+      <h3 class="text-3xl font-bold text-center text-gray-800 mb-12">คุณธรรมอัตลักษณ์</h3>
+      <div class="grid md:grid-cols-4 gap-6">
+       <div class="text-center p-6 bg-blue-50 rounded-2xl">
+        <div class="text-4xl mb-3">
+         🤝
+        </div>
+        <h4 class="font-bold text-lg text-gray-800 mb-2">รักสามัคคี</h4>
+        <p class="text-gray-600 text-sm">ความสามัคคีคือพลัง</p>
+       </div>
+       <div class="text-center p-6 bg-green-50 rounded-2xl">
+        <div class="text-4xl mb-3">
+         ✨
+        </div>
+        <h4 class="font-bold text-lg text-gray-800 mb-2">ซื่อสัตย์สุจริต</h4>
+        <p class="text-gray-600 text-sm">ความซื่อสัตย์คือรากฐาน</p>
+       </div>
+       <div class="text-center p-6 bg-yellow-50 rounded-2xl">
+        <div class="text-4xl mb-3">
+         💪
+        </div>
+        <h4 class="font-bold text-lg text-gray-800 mb-2">รับผิดชอบ</h4>
+        <p class="text-gray-600 text-sm">ความรับผิดชอบคือหน้าที่</p>
+       </div>
+       <div class="text-center p-6 bg-purple-50 rounded-2xl">
+        <div class="text-4xl mb-3">
+         🌟
+        </div>
+        <h4 class="font-bold text-lg text-gray-800 mb-2">สู่จิตสาธารณะ</h4>
+        <p class="text-gray-600 text-sm">จิตสาธารณะคือเป้าหมาย</p>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div><!-- Students Page -->
+   <div id="students-page" class="page-content hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+     <div class="flex justify-between items-center mb-8">
+      <h2 class="text-4xl font-bold text-gray-800">นักเรียนแกนนำ</h2>
+      <div class="text-sm text-gray-600">
+       จำนวนข้อมูลทั้งหมด: <span id="students-count" class="font-bold">0</span>
+      </div>
+     </div><!-- Announcements Grid -->
+     <div class="grid md:grid-cols-3 gap-6 mb-8">
+      <div class="card-hover bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
+       <div class="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mb-4">
+        <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"></path>
+        </svg>
+       </div>
+       <h3 class="text-xl font-bold text-gray-800 mb-2">ประกาศรับสมัคร</h3>
+       <p class="text-gray-600 mb-4">ดูรายละเอียดการรับสมัครนักเรียนแกนนำ</p><button onclick="showAnnouncementModal('students', 'recruitment')" class="text-blue-600 font-medium hover:text-blue-700">ดูรายละเอียด →</button>
+      </div>
+      <div class="card-hover bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
+       <div class="bg-green-100 rounded-full w-16 h-16 flex items-center justify-center mb-4">
+        <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+       </div>
+       <h3 class="text-xl font-bold text-gray-800 mb-2">ประกาศรายชื่อผู้มีสิทธิ์</h3>
+       <p class="text-gray-600 mb-4">ตรวจสอบรายชื่อผู้มีสิทธิ์เข้าร่วม</p><button onclick="showAnnouncementModal('students', 'eligible')" class="text-green-600 font-medium hover:text-green-700">ดูรายชื่อ →</button>
+      </div>
+      <div class="card-hover bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
+       <div class="bg-purple-100 rounded-full w-16 h-16 flex items-center justify-center mb-4">
+        <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+        </svg>
+       </div>
+       <h3 class="text-xl font-bold text-gray-800 mb-2">ระบบรับสมัคร</h3>
+       <p class="text-gray-600 mb-4">กรอกใบสมัครนักเรียนแกนนำ</p><button onclick="showApplicationForm('students')" class="text-purple-600 font-medium hover:text-purple-700">สมัครเลย →</button>
+      </div>
+     </div><!-- Applications List -->
+     <div class="bg-white rounded-2xl shadow-lg border border-gray-100">
+      <div class="p-6 border-b border-gray-200">
+       <h3 class="text-xl font-bold text-gray-800">รายการสมัครนักเรียนแกนนำ</h3>
+      </div>
+      <div id="students-applications" class="p-6">
+       <div class="text-center text-gray-500 py-8">
+        <svg class="w-16 h-16 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+        </svg>
+        <p>ยังไม่มีใบสมัคร</p>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div><!-- Committee Page -->
+   <div id="committee-page" class="page-content hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+     <div class="flex justify-between items-center mb-8">
+      <h2 class="text-4xl font-bold text-gray-800">คณะกรรมการ</h2>
+      <div class="text-sm text-gray-600">
+       จำนวนข้อมูลทั้งหมด: <span id="committee-count" class="font-bold">0</span>
+      </div>
+     </div><!-- Announcements Grid -->
+     <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <div class="card-hover bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
+       <div class="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mb-4">
+        <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"></path>
+        </svg>
+       </div>
+       <h3 class="text-xl font-bold text-gray-800 mb-2">ประกาศรับสมัคร</h3>
+       <p class="text-gray-600 mb-4">ดูรายละเอียดการรับสมัคร</p><button onclick="showAnnouncementModal('committee', 'recruitment')" class="text-blue-600 font-medium hover:text-blue-700">ดูรายละเอียด →</button>
+      </div>
+      <div class="card-hover bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
+       <div class="bg-green-100 rounded-full w-16 h-16 flex items-center justify-center mb-4">
+        <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+        </svg>
+       </div>
+       <h3 class="text-xl font-bold text-gray-800 mb-2">รายชื่อผู้มีสิทธิ์สอบ</h3>
+       <p class="text-gray-600 mb-4">ตรวจสอบรายชื่อผู้มีสิทธิ์สอบสัมภาษณ์</p><button onclick="showAnnouncementModal('committee', 'interview')" class="text-green-600 font-medium hover:text-green-700">ดูรายชื่อ →</button>
+      </div>
+      <div class="card-hover bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
+       <div class="bg-yellow-100 rounded-full w-16 h-16 flex items-center justify-center mb-4">
+        <svg class="w-8 h-8 text-yellow-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+       </div>
+       <h3 class="text-xl font-bold text-gray-800 mb-2">ผู้ผ่านการสัมภาษณ์</h3>
+       <p class="text-gray-600 mb-4">ประกาศผลผู้ผ่านการสัมภาษณ์</p><button onclick="showAnnouncementModal('committee', 'passed')" class="text-yellow-600 font-medium hover:text-yellow-700">ดูรายชื่อ →</button>
+      </div>
+      <div class="card-hover bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
+       <div class="bg-purple-100 rounded-full w-16 h-16 flex items-center justify-center mb-4">
+        <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+        </svg>
+       </div>
+       <h3 class="text-xl font-bold text-gray-800 mb-2">ระบบรับสมัคร</h3>
+       <p class="text-gray-600 mb-4">กรอกใบสมัครคณะกรรมการ</p><button onclick="showApplicationForm('committee')" class="text-purple-600 font-medium hover:text-purple-700">สมัครเลย →</button>
+      </div>
+     </div><!-- Applications List -->
+     <div class="bg-white rounded-2xl shadow-lg border border-gray-100">
+      <div class="p-6 border-b border-gray-200">
+       <h3 class="text-xl font-bold text-gray-800">รายการสมัครคณะกรรมการ</h3>
+      </div>
+      <div id="committee-applications" class="p-6">
+       <div class="text-center text-gray-500 py-8">
+        <svg class="w-16 h-16 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+        </svg>
+        <p>ยังไม่มีใบสมัคร</p>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div><!-- Admin Page -->
+   <div id="admin-page" class="page-content hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+     <h2 class="text-4xl font-bold text-gray-800 mb-8">ระบบจัดการผู้ดูแล</h2><!-- Admin Dashboard -->
+     <div class="grid md:grid-cols-3 gap-6 mb-8">
+      <div class="bg-blue-50 rounded-2xl p-6 border border-blue-200">
+       <div class="flex items-center justify-between">
+        <div>
+         <p class="text-blue-600 text-sm font-medium">นักเรียนแกนนำ</p>
+         <p id="admin-students-count" class="text-3xl font-bold text-blue-800">0</p>
+        </div>
+        <div class="bg-blue-100 rounded-full p-3">
+         <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+         </svg>
+        </div>
+       </div>
+      </div>
+      <div class="bg-green-50 rounded-2xl p-6 border border-green-200">
+       <div class="flex items-center justify-between">
+        <div>
+         <p class="text-green-600 text-sm font-medium">คณะกรรมการ</p>
+         <p id="admin-committee-count" class="text-3xl font-bold text-green-800">0</p>
+        </div>
+        <div class="bg-green-100 rounded-full p-3">
+         <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+         </svg>
+        </div>
+       </div>
+      </div>
+      <div class="bg-purple-50 rounded-2xl p-6 border border-purple-200">
+       <div class="flex items-center justify-between">
+        <div>
+         <p class="text-purple-600 text-sm font-medium">ประกาศทั้งหมด</p>
+         <p id="admin-announcements-count" class="text-3xl font-bold text-purple-800">0</p>
+        </div>
+        <div class="bg-purple-100 rounded-full p-3">
+         <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"></path>
+         </svg>
+        </div>
+       </div>
+      </div>
+     </div><!-- Admin Actions -->
+     <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 mb-8">
+      <h3 class="text-xl font-bold text-gray-800 mb-4">การจัดการประกาศ</h3>
+      <div class="grid md:grid-cols-2 gap-4"><button onclick="showAnnouncementForm()" class="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition flex items-center justify-center">
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+        </svg> เพิ่มประกาศใหม่ </button> <button onclick="exportData()" class="bg-green-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-green-700 transition flex items-center justify-center">
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+        </svg> ส่งออกข้อมูล </button>
+      </div>
+     </div><!-- All Data List -->
+     <div class="bg-white rounded-2xl shadow-lg border border-gray-100">
+      <div class="p-6 border-b border-gray-200">
+       <h3 class="text-xl font-bold text-gray-800">ข้อมูลทั้งหมด</h3>
+      </div>
+      <div id="admin-all-data" class="p-6">
+       <div class="text-center text-gray-500 py-8">
+        <svg class="w-16 h-16 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+        </svg>
+        <p>ยังไม่มีข้อมูล</p>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </main><!-- Modals --> <!-- Application Form Modal -->
+  <div id="application-modal" class="fixed inset-0 bg-black bg-opacity-50 modal hidden z-50 flex items-center justify-center p-4">
+   <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[90%] overflow-y-auto">
+    <div class="p-6 border-b border-gray-200">
+     <div class="flex justify-between items-center">
+      <h3 id="application-modal-title" class="text-2xl font-bold text-gray-800">ใบสมัคร</h3><button onclick="closeModal('application-modal')" class="text-gray-400 hover:text-gray-600">
+       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+       </svg></button>
+     </div>
+    </div>
+    <form id="application-form" class="p-6 space-y-6">
+     <div class="grid md:grid-cols-2 gap-4">
+      <div><label for="applicant-name" class="block text-sm font-medium text-gray-700 mb-2">ชื่อ-นามสกุล *</label> <input type="text" id="applicant-name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+      </div>
+      <div><label for="applicant-email" class="block text-sm font-medium text-gray-700 mb-2">อีเมล *</label> <input type="email" id="applicant-email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+      </div>
+     </div>
+     <div class="grid md:grid-cols-2 gap-4">
+      <div><label for="applicant-phone" class="block text-sm font-medium text-gray-700 mb-2">เบอร์โทรศัพท์ *</label> <input type="tel" id="applicant-phone" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+      </div>
+      <div><label for="applicant-class" class="block text-sm font-medium text-gray-700 mb-2">ชั้นเรียน *</label> <input type="text" id="applicant-class" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="เช่น ม.4/1" required>
+      </div>
+     </div>
+     <div><label for="applicant-school" class="block text-sm font-medium text-gray-700 mb-2">โรงเรียน *</label> <input type="text" id="applicant-school" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" value="โรงเรียนสตรีพัทลุง" required>
+     </div>
+     <div class="flex justify-end space-x-4"><button type="button" onclick="closeModal('application-modal')" class="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition">ยกเลิก</button> <button type="submit" id="submit-application" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition flex items-center"> <span class="submit-text">ส่งใบสมัคร</span>
+       <div class="spinner ml-2 hidden"></div></button>
+     </div>
+    </form>
+   </div>
+  </div><!-- Announcement Modal -->
+  <div id="announcement-modal" class="fixed inset-0 bg-black bg-opacity-50 modal hidden z-50 flex items-center justify-center p-4">
+   <div class="bg-white rounded-2xl max-w-4xl w-full max-h-[90%] overflow-y-auto">
+    <div class="p-6 border-b border-gray-200">
+     <div class="flex justify-between items-center">
+      <h3 id="announcement-modal-title" class="text-2xl font-bold text-gray-800">ประกาศ</h3><button onclick="closeModal('announcement-modal')" class="text-gray-400 hover:text-gray-600">
+       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+       </svg></button>
+     </div>
+    </div>
+    <div id="announcement-content" class="p-6">
+     <div class="text-center text-gray-500 py-8">
+      <svg class="w-16 h-16 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+      </svg>
+      <p>ยังไม่มีประกาศ</p>
+     </div>
+    </div>
+   </div>
+  </div><!-- Announcement Form Modal -->
+  <div id="announcement-form-modal" class="fixed inset-0 bg-black bg-opacity-50 modal hidden z-50 flex items-center justify-center p-4">
+   <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[90%] overflow-y-auto">
+    <div class="p-6 border-b border-gray-200">
+     <div class="flex justify-between items-center">
+      <h3 class="text-2xl font-bold text-gray-800">เพิ่มประกาศใหม่</h3><button onclick="closeModal('announcement-form-modal')" class="text-gray-400 hover:text-gray-600">
+       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+       </svg></button>
+     </div>
+    </div>
+    <form id="announcement-form" class="p-6 space-y-6">
+     <div><label for="announcement-category" class="block text-sm font-medium text-gray-700 mb-2">หมวดหมู่ *</label> <select id="announcement-category" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required> <option value="">เลือกหมวดหมู่</option> <option value="students">นักเรียนแกนนำ</option> <option value="committee">คณะกรรมการ</option> </select>
+     </div>
+     <div><label for="announcement-type" class="block text-sm font-medium text-gray-700 mb-2">ประเภทประกาศ *</label> <select id="announcement-type" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required> <option value="">เลือกประเภท</option> <option value="recruitment">ประกาศรับสมัคร</option> <option value="eligible">รายชื่อผู้มีสิทธิ์</option> <option value="interview">รายชื่อผู้มีสิทธิ์สอบสัมภาษณ์</option> <option value="passed">ผู้ผ่านการสัมภาษณ์</option> </select>
+     </div>
+     <div><label for="announcement-title" class="block text-sm font-medium text-gray-700 mb-2">หัวข้อประกาศ *</label> <input type="text" id="announcement-title" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+     </div>
+     <div><label for="announcement-content" class="block text-sm font-medium text-gray-700 mb-2">เนื้อหาประกาศ *</label> <textarea id="announcement-content" rows="6" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required></textarea>
+     </div>
+     <div class="flex justify-end space-x-4"><button type="button" onclick="closeModal('announcement-form-modal')" class="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition">ยกเลิก</button> <button type="submit" id="submit-announcement" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition flex items-center"> <span class="submit-text">เพิ่มประกาศ</span>
+       <div class="spinner ml-2 hidden"></div></button>
+     </div>
+    </form>
+   </div>
+  </div><!-- Footer -->
+  <footer class="bg-gray-900 text-white mt-16">
+   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="grid md:grid-cols-4 gap-8"><!-- Contact -->
+     <div>
+      <h3 class="text-lg font-bold mb-4">ช่องทางการติดต่อ</h3>
+      <div class="space-y-2 text-gray-300">
+       <p class="flex items-center">
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+        </svg> sptmorral@spt.ac.th</p>
+      </div>
+     </div><!-- Sitemap -->
+     <div>
+      <h3 class="text-lg font-bold mb-4">แผนผังเว็บไซต์</h3>
+      <ul class="space-y-2 text-gray-300">
+       <li><a href="#" class="hover:text-blue-400 transition" data-page="home">หน้าหลัก</a></li>
+       <li><a href="#" class="hover:text-blue-400 transition" data-page="students">นักเรียนแกนนำ</a></li>
+       <li><a href="#" class="hover:text-blue-400 transition" data-page="committee">คณะกรรมการ</a></li>
+       <li><a href="#" class="hover:text-blue-400 transition" data-page="admin">ผู้ดูแลระบบ</a></li>
+      </ul>
+     </div><!-- Social Media -->
+     <div>
+      <h3 class="text-lg font-bold mb-4">ติดตามเรา</h3>
+      <div class="flex space-x-4"><a href="https://www.facebook.com/sptmoralschool" target="_blank" rel="noopener noreferrer" class="bg-blue-600 hover:bg-blue-700 p-3 rounded-full transition">
+        <svg class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"></path>
+        </svg></a> <a href="https://www.instagram.com/spt_moral_school/" target="_blank" rel="noopener noreferrer" class="bg-pink-600 hover:bg-pink-700 p-3 rounded-full transition">
+        <svg class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path>
+        </svg></a> <a href="https://www.tiktok.com/@spt.moral.school" target="_blank" rel="noopener noreferrer" class="bg-gray-800 hover:bg-gray-700 p-3 rounded-full transition">
+        <svg class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z"></path>
+        </svg></a>
+      </div>
+     </div><!-- Logo -->
+     <div class="flex flex-col items-center md:items-end">
+      <div class="flex space-x-4 mb-4"><img src="https://img5.pic.in.th/file/secure-sv1/IMG_0310f4b22b3a3a8d0946.jpeg" alt="โลโก้โรงเรียนสตรีพัทลุง" class="h-16 w-16 object-contain" onerror="this.src=''; this.style.display='none';"> <img src="https://img5.pic.in.th/file/secure-sv1/IMG_25650953161d1c1bbdd8.jpeg" alt="โลโก้โรงเรียนคุณธรรม" class="h-16 w-16 object-contain" onerror="this.src=''; this.style.display='none';">
+      </div>
+     </div>
+    </div>
+    <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+     <p id="footer-copyright">© 2024 SPT MORAL SCHOOL - โรงเรียนคุณธรรม สพฐ. โรงเรียนสตรีพัทลุง | All Rights Reserved</p>
+    </div>
+   </div>
+  </footer>
+  <script>
+    const defaultConfig = {
+      school_name: "โรงเรียนสตรีพัทลุง",
+      hero_title: "โรงเรียนคุณธรรม สพฐ.",
+      hero_subtitle: "รักสามัคคี ซื่อสัตย์สุจริต รับผิดชอบ สู่จิตสาธารณะ",
+      welcome_text: "ยินดีต้อนรับสู่ระบบรับสมัคร",
+      footer_copyright: "© 2024 SPT MORAL SCHOOL - โรงเรียนคุณธรรม สพฐ. โรงเรียนสตรีพัทลุง | All Rights Reserved",
+      background_color: "#ffffff",
+      primary_color: "#2563eb",
+      text_color: "#1f2937",
+      accent_color: "#10b981",
+      secondary_color: "#6b7280"
+    };
+
+    let currentPage = 'home';
+    let allData = [];
+    let currentRecordCount = 0;
+
+    // Data Handler
+    const dataHandler = {
+      onDataChanged(data) {
+        allData = data;
+        currentRecordCount = data.length;
+        updateUI();
+      }
+    };
+
+    function updateUI() {
+      updateCounts();
+      renderApplications();
+      renderAdminData();
+    }
+
+    function updateCounts() {
+      const studentsCount = allData.filter(item => item.application_type === 'students').length;
+      const committeeCount = allData.filter(item => item.application_type === 'committee').length;
+      const announcementsCount = allData.filter(item => item.type === 'announcement').length;
+
+      document.getElementById('students-count').textContent = studentsCount;
+      document.getElementById('committee-count').textContent = committeeCount;
+      
+      if (document.getElementById('admin-students-count')) {
+        document.getElementById('admin-students-count').textContent = studentsCount;
+        document.getElementById('admin-committee-count').textContent = committeeCount;
+        document.getElementById('admin-announcements-count').textContent = announcementsCount;
+      }
+    }
+
+    function renderApplications() {
+      renderApplicationsForType('students');
+      renderApplicationsForType('committee');
+    }
+
+    function renderApplicationsForType(type) {
+      const container = document.getElementById(`${type}-applications`);
+      const applications = allData.filter(item => item.application_type === type);
+
+      if (applications.length === 0) {
+        container.innerHTML = `
+          <div class="text-center text-gray-500 py-8">
+            <svg class="w-16 h-16 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+            <p>ยังไม่มีใบสมัคร</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = applications.map(app => `
+        <div class="border border-gray-200 rounded-lg p-4 mb-4 hover:shadow-md transition">
+          <div class="flex justify-between items-start">
+            <div class="flex-1">
+              <h4 class="font-bold text-lg text-gray-800">${app.applicant_name}</h4>
+              <div class="grid md:grid-cols-2 gap-2 mt-2 text-sm text-gray-600">
+                <p><span class="font-medium">อีเมล:</span> ${app.applicant_email}</p>
+                <p><span class="font-medium">เบอร์โทร:</span> ${app.applicant_phone}</p>
+                <p><span class="font-medium">ชั้นเรียน:</span> ${app.applicant_class}</p>
+                <p><span class="font-medium">โรงเรียน:</span> ${app.applicant_school}</p>
+              </div>
+              <p class="text-xs text-gray-500 mt-2">สมัครเมื่อ: ${new Date(app.created_at).toLocaleString('th-TH')}</p>
+            </div>
+            <div class="flex space-x-2 ml-4">
+              <button onclick="editApplication('${app.__backendId}')" class="text-blue-600 hover:text-blue-700 p-2 rounded-lg hover:bg-blue-50 transition">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                </svg>
+              </button>
+              <button onclick="deleteApplication('${app.__backendId}')" class="text-red-600 hover:text-red-700 p-2 rounded-lg hover:bg-red-50 transition">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderAdminData() {
+      const container = document.getElementById('admin-all-data');
+      if (!container) return;
+
+      if (allData.length === 0) {
+        container.innerHTML = `
+          <div class="text-center text-gray-500 py-8">
+            <svg class="w-16 h-16 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+            <p>ยังไม่มีข้อมูล</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = allData.map(item => {
+        if (item.type === 'announcement') {
+          return `
+            <div class="border border-gray-200 rounded-lg p-4 mb-4 hover:shadow-md transition">
+              <div class="flex justify-between items-start">
+                <div class="flex-1">
+                  <div class="flex items-center mb-2">
+                    <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full mr-2">ประกาศ</span>
+                    <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded-full">${item.category}</span>
+                  </div>
+                  <h4 class="font-bold text-lg text-gray-800">${item.title}</h4>
+                  <p class="text-gray-600 mt-1 line-clamp-2">${item.content}</p>
+                  <p class="text-xs text-gray-500 mt-2">สร้างเมื่อ: ${new Date(item.created_at).toLocaleString('th-TH')}</p>
+                </div>
+                <div class="flex space-x-2 ml-4">
+                  <button onclick="editAnnouncement('${item.__backendId}')" class="text-blue-600 hover:text-blue-700 p-2 rounded-lg hover:bg-blue-50 transition">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                    </svg>
+                  </button>
+                  <button onclick="deleteItem('${item.__backendId}')" class="text-red-600 hover:text-red-700 p-2 rounded-lg hover:bg-red-50 transition">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          `;
+        } else {
+          return `
+            <div class="border border-gray-200 rounded-lg p-4 mb-4 hover:shadow-md transition">
+              <div class="flex justify-between items-start">
+                <div class="flex-1">
+                  <div class="flex items-center mb-2">
+                    <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full mr-2">ใบสมัคร</span>
+                    <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded-full">${item.application_type}</span>
+                  </div>
+                  <h4 class="font-bold text-lg text-gray-800">${item.applicant_name}</h4>
+                  <div class="grid md:grid-cols-2 gap-2 mt-2 text-sm text-gray-600">
+                    <p><span class="font-medium">อีเมล:</span> ${item.applicant_email}</p>
+                    <p><span class="font-medium">ชั้นเรียน:</span> ${item.applicant_class}</p>
+                  </div>
+                  <p class="text-xs text-gray-500 mt-2">สมัครเมื่อ: ${new Date(item.created_at).toLocaleString('th-TH')}</p>
+                </div>
+                <div class="flex space-x-2 ml-4">
+                  <button onclick="editApplication('${item.__backendId}')" class="text-blue-600 hover:text-blue-700 p-2 rounded-lg hover:bg-blue-50 transition">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                    </svg>
+                  </button>
+                  <button onclick="deleteItem('${item.__backendId}')" class="text-red-600 hover:text-red-700 p-2 rounded-lg hover:bg-red-50 transition">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          `;
+        }
+      }).join('');
+    }
+
+    // Modal Functions
+    function showApplicationForm(type) {
+      const modal = document.getElementById('application-modal');
+      const title = document.getElementById('application-modal-title');
+      const form = document.getElementById('application-form');
+      
+      title.textContent = type === 'students' ? 'ใบสมัครนักเรียนแกนนำ' : 'ใบสมัครคณะกรรมการ';
+      form.dataset.type = type;
+      form.reset();
+      
+      modal.classList.remove('hidden');
+    }
+
+    function showAnnouncementModal(category, type) {
+      const modal = document.getElementById('announcement-modal');
+      const title = document.getElementById('announcement-modal-title');
+      const content = document.getElementById('announcement-content');
+      
+      const announcements = allData.filter(item => 
+        item.type === 'announcement' && 
+        item.category === category && 
+        item.status === type
+      );
+
+      const titles = {
+        recruitment: 'ประกาศรับสมัคร',
+        eligible: 'ประกาศรายชื่อผู้มีสิทธิ์',
+        interview: 'ประกาศรายชื่อผู้มีสิทธิ์สอบสัมภาษณ์',
+        passed: 'ประกาศผู้ผ่านการสัมภาษณ์'
+      };
+
+      title.textContent = titles[type] || 'ประกาศ';
+
+      if (announcements.length === 0) {
+        content.innerHTML = `
+          <div class="text-center text-gray-500 py-8">
+            <svg class="w-16 h-16 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+            <p>ยังไม่มีประกาศ</p>
+          </div>
+        `;
+      } else {
+        content.innerHTML = announcements.map(announcement => `
+          <div class="border border-gray-200 rounded-lg p-6 mb-4">
+            <h4 class="text-xl font-bold text-gray-800 mb-3">${announcement.title}</h4>
+            <div class="text-gray-600 whitespace-pre-line">${announcement.content}</div>
+            <p class="text-sm text-gray-500 mt-4">ประกาศเมื่อ: ${new Date(announcement.created_at).toLocaleString('th-TH')}</p>
+          </div>
+        `).join('');
+      }
+
+      modal.classList.remove('hidden');
+    }
+
+    function showAnnouncementForm() {
+      const modal = document.getElementById('announcement-form-modal');
+      const form = document.getElementById('announcement-form');
+      form.reset();
+      modal.classList.remove('hidden');
+    }
+
+    function closeModal(modalId) {
+      document.getElementById(modalId).classList.add('hidden');
+    }
+
+    // Form Handlers
+    document.getElementById('application-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      if (currentRecordCount >= 999) {
+        showToast('ถึงขีดจำกัดแล้ว! สามารถเก็บข้อมูลได้สูงสุด 999 รายการ กรุณาลบข้อมูลเก่าก่อน', 'error');
+        return;
+      }
+
+      const submitBtn = document.getElementById('submit-application');
+      const spinner = submitBtn.querySelector('.spinner');
+      const text = submitBtn.querySelector('.submit-text');
+      
+      submitBtn.classList.add('loading');
+      spinner.classList.remove('hidden');
+      text.textContent = 'กำลังส่ง...';
+      submitBtn.disabled = true;
+
+      const formData = new FormData(e.target);
+      const type = e.target.dataset.type;
+      
+      const applicationData = {
+        id: Date.now().toString(),
+        type: 'application',
+        application_type: type,
+        applicant_name: document.getElementById('applicant-name').value,
+        applicant_email: document.getElementById('applicant-email').value,
+        applicant_phone: document.getElementById('applicant-phone').value,
+        applicant_class: document.getElementById('applicant-class').value,
+        applicant_school: document.getElementById('applicant-school').value,
+        status: 'pending',
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      };
+
+      const result = await window.dataSdk.create(applicationData);
+      
+      submitBtn.classList.remove('loading');
+      spinner.classList.add('hidden');
+      text.textContent = 'ส่งใบสมัคร';
+      submitBtn.disabled = false;
+
+      if (result.isOk) {
+        showToast('ส่งใบสมัครเรียบร้อยแล้ว!', 'success');
+        closeModal('application-modal');
+      } else {
+        showToast('เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง', 'error');
+      }
+    });
+
+    document.getElementById('announcement-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      if (currentRecordCount >= 999) {
+        showToast('ถึงขีดจำกัดแล้ว! สามารถเก็บข้อมูลได้สูงสุด 999 รายการ กรุณาลบข้อมูลเก่าก่อน', 'error');
+        return;
+      }
+
+      const submitBtn = document.getElementById('submit-announcement');
+      const spinner = submitBtn.querySelector('.spinner');
+      const text = submitBtn.querySelector('.submit-text');
+      
+      submitBtn.classList.add('loading');
+      spinner.classList.remove('hidden');
+      text.textContent = 'กำลังเพิ่ม...';
+      submitBtn.disabled = true;
+
+      const announcementData = {
+        id: Date.now().toString(),
+        type: 'announcement',
+        category: document.getElementById('announcement-category').value,
+        status: document.getElementById('announcement-type').value,
+        title: document.getElementById('announcement-title').value,
+        content: document.getElementById('announcement-content').value,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      };
+
+      const result = await window.dataSdk.create(announcementData);
+      
+      submitBtn.classList.remove('loading');
+      spinner.classList.add('hidden');
+      text.textContent = 'เพิ่มประกาศ';
+      submitBtn.disabled = false;
+
+      if (result.isOk) {
+        showToast('เพิ่มประกาศเรียบร้อยแล้ว!', 'success');
+        closeModal('announcement-form-modal');
+      } else {
+        showToast('เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง', 'error');
+      }
+    });
+
+    // Delete Functions
+    async function deleteItem(backendId) {
+      const item = allData.find(item => item.__backendId === backendId);
+      if (!item) return;
+
+      const confirmDiv = document.createElement('div');
+      confirmDiv.className = 'fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4';
+      confirmDiv.innerHTML = `
+        <div class="bg-white rounded-2xl p-6 max-w-md w-full">
+          <h3 class="text-lg font-bold text-gray-800 mb-4">ยืนยันการลบ</h3>
+          <p class="text-gray-600 mb-6">คุณต้องการลบรายการนี้หรือไม่? การดำเนินการนี้ไม่สามารถย้อนกลับได้</p>
+          <div class="flex justify-end space-x-4">
+            <button onclick="this.closest('.fixed').remove()" class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition">ยกเลิก</button>
+            <button onclick="confirmDelete('${backendId}', this)" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition">ลบ</button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(confirmDiv);
+    }
+
+    async function confirmDelete(backendId, button) {
+      const item = allData.find(item => item.__backendId === backendId);
+      if (!item) return;
+
+      button.disabled = true;
+      button.innerHTML = '<div class="spinner"></div>';
+
+      const result = await window.dataSdk.delete(item);
+      
+      if (result.isOk) {
+        showToast('ลบรายการเรียบร้อยแล้ว!', 'success');
+      } else {
+        showToast('เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง', 'error');
+      }
+
+      button.closest('.fixed').remove();
+    }
+
+    function deleteApplication(backendId) {
+      deleteItem(backendId);
+    }
+
+    // Edit Functions
+    function editApplication(backendId) {
+      const application = allData.find(item => item.__backendId === backendId);
+      if (!application) return;
+
+      showApplicationForm(application.application_type);
+      
+      document.getElementById('applicant-name').value = application.applicant_name;
+      document.getElementById('applicant-email').value = application.applicant_email;
+      document.getElementById('applicant-phone').value = application.applicant_phone;
+      document.getElementById('applicant-class').value = application.applicant_class;
+      document.getElementById('applicant-school').value = application.applicant_school;
+      
+      const form = document.getElementById('application-form');
+      form.dataset.editId = backendId;
+      
+      const submitBtn = document.getElementById('submit-application');
+      submitBtn.querySelector('.submit-text').textContent = 'อัปเดตใบสมัคร';
+    }
+
+    function editAnnouncement(backendId) {
+      const announcement = allData.find(item => item.__backendId === backendId);
+      if (!announcement) return;
+
+      showAnnouncementForm();
+      
+      document.getElementById('announcement-category').value = announcement.category;
+      document.getElementById('announcement-type').value = announcement.status;
+      document.getElementById('announcement-title').value = announcement.title;
+      document.getElementById('announcement-content').value = announcement.content;
+      
+      const form = document.getElementById('announcement-form');
+      form.dataset.editId = backendId;
+      
+      const submitBtn = document.getElementById('submit-announcement');
+      submitBtn.querySelector('.submit-text').textContent = 'อัปเดตประกาศ';
+    }
+
+    // Export Function
+    function exportData() {
+      const csvContent = "data:text/csv;charset=utf-8," + 
+        "ประเภท,ชื่อ,อีเมล,เบอร์โทร,ชั้นเรียน,โรงเรียน,วันที่สมัคร\n" +
+        allData.filter(item => item.type === 'application').map(item => 
+          `${item.application_type},${item.applicant_name},${item.applicant_email},${item.applicant_phone},${item.applicant_class},${item.applicant_school},${new Date(item.created_at).toLocaleDateString('th-TH')}`
+        ).join("\n");
+
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      link.setAttribute("download", `ข้อมูลสมัคร_${new Date().toLocaleDateString('th-TH')}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+      showToast('ส่งออกข้อมูลเรียบร้อยแล้ว!', 'success');
+    }
+
+    // Toast Function
+    function showToast(message, type = 'info') {
+      const toast = document.createElement('div');
+      toast.className = `fixed top-4 right-4 z-50 px-6 py-3 rounded-lg text-white font-medium transform transition-all duration-300 translate-x-full ${
+        type === 'success' ? 'bg-green-600' : 
+        type === 'error' ? 'bg-red-600' : 'bg-blue-600'
+      }`;
+      toast.textContent = message;
+      
+      document.body.appendChild(toast);
+      
+      setTimeout(() => toast.classList.remove('translate-x-full'), 100);
+      setTimeout(() => {
+        toast.classList.add('translate-x-full');
+        setTimeout(() => document.body.removeChild(toast), 300);
+      }, 3000);
+    }
+
+    // Navigation
+    function showPage(pageName) {
+      const pages = document.querySelectorAll('.page-content');
+      pages.forEach(page => page.classList.add('hidden'));
+      
+      const targetPage = document.getElementById(`${pageName}-page`);
+      if (targetPage) {
+        targetPage.classList.remove('hidden');
+        targetPage.classList.add('fade-in');
+      }
+
+      const navLinks = document.querySelectorAll('.nav-link');
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.dataset.page === pageName) {
+          link.classList.add('active');
+        }
+      });
+
+      currentPage = pageName;
+    }
+
+    // Event Listeners
+    document.addEventListener('click', (e) => {
+      const link = e.target.closest('[data-page]');
+      if (link) {
+        e.preventDefault();
+        const pageName = link.dataset.page;
+        showPage(pageName);
+      }
+    });
+
+    document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+      const mobileMenu = document.getElementById('mobile-menu');
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Close modals when clicking outside
+    document.addEventListener('click', (e) => {
+      if (e.target.classList.contains('modal')) {
+        e.target.classList.add('hidden');
+      }
+    });
+
+    // Config Change Handler
+    async function onConfigChange(config) {
+      const schoolName = config.school_name || defaultConfig.school_name;
+      const heroTitle = config.hero_title || defaultConfig.hero_title;
+      const heroSubtitle = config.hero_subtitle || defaultConfig.hero_subtitle;
+      const welcomeText = config.welcome_text || defaultConfig.welcome_text;
+      const footerCopyright = config.footer_copyright || defaultConfig.footer_copyright;
+      
+      const backgroundColor = config.background_color || defaultConfig.background_color;
+      const primaryColor = config.primary_color || defaultConfig.primary_color;
+      const textColor = config.text_color || defaultConfig.text_color;
+      const accentColor = config.accent_color || defaultConfig.accent_color;
+      const secondaryColor = config.secondary_color || defaultConfig.secondary_color;
+
+      document.getElementById('school-name').textContent = schoolName;
+      document.getElementById('hero-title').textContent = heroTitle;
+      document.getElementById('hero-subtitle').textContent = heroSubtitle;
+      document.getElementById('welcome-text').textContent = welcomeText;
+      document.getElementById('footer-copyright').textContent = footerCopyright;
+
+      document.body.style.backgroundColor = backgroundColor;
+      
+      const navLinks = document.querySelectorAll('.nav-link');
+      navLinks.forEach(link => {
+        link.style.color = textColor;
+      });
+
+      const headings = document.querySelectorAll('h1, h2, h3, h4');
+      headings.forEach(heading => {
+        heading.style.color = textColor;
+      });
+
+      const buttons = document.querySelectorAll('button, a[class*="bg-"]');
+      buttons.forEach(button => {
+        if (button.classList.contains('bg-blue-600')) {
+          button.style.backgroundColor = primaryColor;
+        } else if (button.classList.contains('bg-green-600')) {
+          button.style.backgroundColor = accentColor;
+        }
+      });
+    }
+
+    // Initialize
+    async function init() {
+      if (window.dataSdk) {
+        const result = await window.dataSdk.init(dataHandler);
+        if (!result.isOk) {
+          console.error('Failed to initialize Data SDK');
+        }
+      }
+
+      if (window.elementSdk) {
+        window.elementSdk.init({
+          defaultConfig,
+          onConfigChange,
+          mapToCapabilities: (config) => ({
+            recolorables: [
+              {
+                get: () => config.background_color || defaultConfig.background_color,
+                set: (value) => {
+                  config.background_color = value;
+                  window.elementSdk.setConfig({ background_color: value });
+                }
+              },
+              {
+                get: () => config.primary_color || defaultConfig.primary_color,
+                set: (value) => {
+                  config.primary_color = value;
+                  window.elementSdk.setConfig({ primary_color: value });
+                }
+              },
+              {
+                get: () => config.text_color || defaultConfig.text_color,
+                set: (value) => {
+                  config.text_color = value;
+                  window.elementSdk.setConfig({ text_color: value });
+                }
+              },
+              {
+                get: () => config.accent_color || defaultConfig.accent_color,
+                set: (value) => {
+                  config.accent_color = value;
+                  window.elementSdk.setConfig({ accent_color: value });
+                }
+              },
+              {
+                get: () => config.secondary_color || defaultConfig.secondary_color,
+                set: (value) => {
+                  config.secondary_color = value;
+                  window.elementSdk.setConfig({ secondary_color: value });
+                }
+              }
+            ],
+            borderables: [],
+            fontEditable: undefined,
+            fontSizeable: undefined
+          }),
+          mapToEditPanelValues: (config) => new Map([
+            ["school_name", config.school_name || defaultConfig.school_name],
+            ["hero_title", config.hero_title || defaultConfig.hero_title],
+            ["hero_subtitle", config.hero_subtitle || defaultConfig.hero_subtitle],
+            ["welcome_text", config.welcome_text || defaultConfig.welcome_text],
+            ["footer_copyright", config.footer_copyright || defaultConfig.footer_copyright]
+          ])
+        });
+      }
+    }
+
+    init();
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'99b1f083e6af4f52',t:'MTc2MjU3MjA3OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
