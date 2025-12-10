@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>โรงเรียนสตรีพัทลุง (Satri Phatthalung School)</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts (Prompt for Thai) -->
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- CSS SECTION -->
+    <style>
+        :root {
+            --primary-color: #0d6efd;
+            --secondary-color: #6c757d;
+            --accent-color: #e9ecef;
+            --text-dark: #2c3e50;
+            --border-radius-lg: 20px;
+            --border-radius-sm: 10px;
+            --shadow-soft: 0 10px 25px rgba(0,0,0,0.05);
+        }
+
+        body {
+            font-family: 'Prompt', sans-serif;
+            background-color: #f8f9fa;
+            color: var(--text-dark);
+            padding-top: 80px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            padding: 10px 0;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+        }
+
+        .navbar-brand {
+            font-weight: 600;
+            color: var(--primary-color) !important;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .school-logo {
+            height: 50px;
+            width: 50px;
+            margin-right: 12px;
+            border-radius: 50%;
+            background-color: #ffffff;
+            padding: 4px;
+            object-fit: contain;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border: 1px solid #eee;
+        }
+
+        .nav-link {
+            color: var(--text-dark);
+            font-weight: 400;
+            margin: 0 5px;
+            border-radius: var(--border-radius-sm);
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background-color: #e7f1ff;
+            color: var(--primary-color);
+        }
+
+        .dropdown-menu {
+            border: none;
+            box-shadow: var(--shadow-soft);
+            border-radius: var(--border-radius-lg);
+            margin-top: 15px;
+        }
+
+        .dropdown-item {
+            padding: 10px 20px;
+            border-radius: var(--border-radius-sm);
+            margin: 2px 5px;
+            width: auto;
+        }
+
+        .dropdown-item:hover {
+            background-color: #f0f4f8;
+            color: var(--primary-color);
+        }
+
+        main {
+            flex: 1;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+
+        .page-section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Hero Section */
+        .hero-banner {
+            background: linear-gradient(135deg, #0d6efd 0%, #0099ff 100%);
+            color: white;
+            padding: 60px 20px;
+            border-radius: 30px;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow-soft);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-banner::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+        }
+
+        /* Post Cards */
+        .post-card {
+            border: none;
+            border-radius: var(--border-radius-lg);
+            background: white;
+            box-shadow: var(--shadow-soft);
+            transition: transform 0.3s ease;
+            height: 100%;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .post-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .post-img-container {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .post-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .post-header {
+            background-color: #fff;
+            padding: 20px 20px 10px 20px;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .post-body {
+            padding: 0 20px 20px 20px;
+            flex-grow: 1;
+        }
+
+        .post-footer {
+            background-color: #f8f9fa;
+            padding: 15px 20px;
+            border-top: 1px solid #eee;
+            font-size: 0.85rem;
+            color: #888;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .category-badge {
+            background-color: #e7f1ff;
+            color: var(--primary-color);
+            padding: 5px 12px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        /* Personnel List Styles */
+        .personnel-card {
+            display: flex;
+            align-items: center;
+            background: #fff;
+            border-radius: 15px;
+            padding: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+            border: 1px solid #f0f0f0;
+            transition: transform 0.2s;
+            position: relative;
+        }
+        .personnel-card:hover {
+            transform: translateX(5px);
+            border-color: var(--primary-color);
+        }
+        .personnel-img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-right: 15px;
+            border: 2px solid #e7f1ff;
+            background-color: #f8f9fa;
+        }
+        .personnel-icon-placeholder {
+            width: 60px;
+            height: 60px;
+            background-color: #e7f1ff;
+            color: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        .personnel-info h6 {
+            margin: 0;
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 1.1rem;
+        }
+        .personnel-info small {
+            display: block;
+            color: #6c757d;
+            margin-top: 2px;
+        }
+        .personnel-badge {
+            font-size: 0.75rem;
+            background: #f8f9fa;
+            color: var(--primary-color);
+            padding: 2px 10px;
+            border-radius: 20px;
+            border: 1px solid #e7f1ff;
+            margin-top: 5px;
+            display: inline-block;
+            font-weight: 500;
+        }
+        .personnel-actions {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            gap: 5px;
+        }
+        .action-btn {
+            color: #6c757d;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: all 0.2s;
+        }
+        .action-btn:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+        .btn-edit { color: #ffc107; }
+        .btn-delete { color: #dc3545; }
+
+        /* Tabs Styling */
+        .custom-tabs .nav-link {
+            border: none;
+            color: #6c757d;
+            font-weight: 500;
+            padding: 10px 20px;
+            border-radius: 50px !important;
+            margin-right: 10px;
+            transition: all 0.3s;
+        }
+        .custom-tabs .nav-link:hover {
+            background-color: #f0f0f0;
+        }
+        .custom-tabs .nav-link.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* Admin Controls */
+        .admin-controls {
+            display: none; 
+        }
+        .admin-indicator {
+            display: none;
+            background-color: #dc3545;
+            color: white !important;
+            font-weight: 600;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+        }
+        .admin-indicator:hover {
+            background-color: #c82333;
+            color: white;
+        }
+        
+        .floating-add-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            box-shadow: 0 5px 20px rgba(13, 110, 253, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s;
+        }
+        
+        .floating-personnel-btn {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #198754; /* Green */
+            color: white;
+            box-shadow: 0 5px 20px rgba(25, 135, 84, 0.4);
+            display: none; 
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s;
+        }
+
+        .floating-add-btn:hover, .floating-personnel-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #022c5e 0%, #001f44 100%);
+            color: #e0e0e0;
+            padding: 70px 0 0 0;
+            margin-top: 80px;
+            border-top-left-radius: 50px;
+            border-top-right-radius: 50px;
+            box-shadow: 0 -10px 40px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        footer::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -50px;
+            width: 300px;
+            height: 300px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .footer-title {
+            color: #fff;
+            font-weight: 700;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 15px;
+            font-size: 1.25rem;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+        }
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 3px;
+            background-color: #0dcaf0;
+            border-radius: 2px;
+        }
+        .footer-link {
+            color: #b0c4de;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 12px;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-left: 0;
+        }
+        .footer-link:hover {
+            color: #fff;
+            padding-left: 8px;
+        }
+        .footer-link i {
+            width: 20px;
+            text-align: center;
+            margin-right: 5px;
+            font-size: 0.9em;
+        }
+        .footer-contact-item {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+        }
+        .footer-contact-icon {
+            background: rgba(255,255,255,0.1);
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: #0dcaf0;
+            flex-shrink: 0;
+        }
+        .footer-contact-text {
+            color: #b0c4de;
+            font-size: 0.95rem;
+            margin-top: 5px;
+        }
+        .footer-contact-text a {
+            color: #b0c4de;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .footer-contact-text a:hover {
+            color: #fff;
+            text-decoration: underline;
+        }
+        .social-icons a {
+            display: inline-flex;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.05);
+            color: #fff;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s;
+            text-decoration: none;
+            margin-right: 5px;
+        }
+        .social-icons a:hover {
+            background: #0d6efd;
+            transform: translateY(-3px);
+        }
+        .copyright-section {
+            background: rgba(0,0,0,0.2);
+            padding: 20px 0;
+            margin-top: 50px;
+            font-size: 0.9rem;
+            color: #8ca0b8;
+        }
+
+        /* Admissions & History */
+        .admission-tab-btn {
+            border-radius: 50px !important;
+            padding: 10px 25px !important;
+            font-weight: 500;
+            border: 1px solid #eee !important;
+            margin: 0 5px;
+            color: var(--secondary-color);
+        }
+        .admission-tab-btn.active {
+            background-color: var(--primary-color) !important;
+            color: white !important;
+            border-color: var(--primary-color) !important;
+        }
+        .program-card {
+            background: #fff;
+            border: 1px solid #eef2f6;
+            border-radius: 15px;
+            padding: 20px;
+            height: 100%;
+            transition: all 0.3s;
+        }
+        .program-card:hover {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+        }
+        .program-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        .program-list li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+        .program-list li::before {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: #28a745;
+        }
+        .timeline-item {
+            padding: 20px;
+            border-left: 3px solid var(--primary-color);
+            margin-left: 20px;
+            position: relative;
+            background: white;
+            margin-bottom: 15px;
+            border-radius: 0 10px 10px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -9px;
+            top: 25px;
+            width: 15px;
+            height: 15px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            border: 3px solid #fff;
+        }
+        .timeline-year {
+            font-weight: 700;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        /* Contact Links */
+        .contact-link {
+            color: var(--text-dark);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        .contact-link:hover {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+        .contact-social-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background-color: #f8f9fa;
+            color: var(--primary-color);
+            margin-right: 10px;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        .contact-social-btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* Utility */
+        .rounded-xl { border-radius: var(--border-radius-lg) !important; }
+        .text-justify-thai { text-align: justify; text-justify: inter-word; }
+        .loading-spinner { display: flex; justify-content: center; padding: 50px; }
+
+        /* Mobile Adjustments */
+        @media (max-width: 991px) {
+            .navbar-brand { font-size: 1rem; }
+            .school-logo { height: 40px; width: 40px; margin-right: 10px; padding: 3px; }
+            .navbar-collapse {
+                padding: 10px 15px;
+                background: white;
+                border-radius: var(--border-radius-lg);
+                margin-top: 10px;
+            }
+            .nav-link { margin: 5px 0; }
+            .footer-title { margin-top: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#home">
+                <img src="https://img5.pic.in.th/file/secure-sv1/IMG_0310f4b22b3a3a8d0946.jpeg" alt="Logo" class="school-logo">
+                Satri Phatthalung
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#home" id="nav-home">หน้าหลัก</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#pr" id="nav-pr">ประชาสัมพันธ์</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about" id="nav-about">เกี่ยวกับโรงเรียน</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#admissions/regular" id="nav-admissions">รับสมัคร</a></li>
+                    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">กลุ่มงาน</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#dept-student">กิจการนักเรียน</a></li>
+                            <li><a class="dropdown-item" href="#dept-admin">บริหารทั่วไป</a></li>
+                            <li><a class="dropdown-item" href="#dept-personnel">บุคคล</a></li>
+                            <li><a class="dropdown-item" href="#dept-budget">งบประมาณ</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">กลุ่มสาระฯ</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#area-thai">ภาษาไทย</a></li>
+                            <li><a class="dropdown-item" href="#area-math">คณิตศาสตร์</a></li>
+                            <li><a class="dropdown-item" href="#area-sci">วิทยาศาสตร์</a></li>
+                            <li><a class="dropdown-item" href="#area-social">สังคมศึกษา</a></li>
+                            <li><a class="dropdown-item" href="#area-health">สุขศึกษา</a></li>
+                            <li><a class="dropdown-item" href="#area-foreign">ภาษาต่างประเทศ</a></li>
+                            <li><a class="dropdown-item" href="#area-art">ศิลปะ</a></li>
+                            <li><a class="dropdown-item" href="#area-work">การงานอาชีพ</a></li>
+                            <li><a class="dropdown-item" href="#area-guidance">แนะแนว</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">เอกสาร</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#doc-schedule">ตารางเรียน</a></li>
+                            <li><a class="dropdown-item" href="#doc-teaching">ตารางสอน</a></li>
+                            <li><a class="dropdown-item" href="#doc-exam">ตารางสอบ</a></li>
+                            <li><a class="dropdown-item" href="#doc-studentlist">รายชื่อนักเรียน</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item"><a class="nav-link" href="#contact" id="nav-contact">ติดต่อ</a></li>
+                    
+                    <li class="nav-item admin-indicator-item" style="display: none;">
+                        <a class="nav-link admin-indicator" href="#" onclick="toggleAuthModal(); return false;">
+                            <i class="fas fa-user-shield me-1"></i> Admin
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main id="app" class="container my-4">
+        
+        <!-- HOME PAGE -->
+        <div id="home" class="page-section active">
+            <div class="hero-banner">
+                <h1>ยินดีต้อนรับสู่โรงเรียนสตรีพัทลุง</h1>
+                <p class="lead">Satri Phatthalung School</p>
+                <div class="mt-4">
+                    <a class="btn btn-light rounded-pill px-4 py-2 me-2" href="#pr">ข่าวประชาสัมพันธ์</a>
+                    <a class="btn btn-outline-light rounded-pill px-4 py-2" href="#admissions/regular">สมัครเรียน</a>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3 class="fw-bold border-start border-4 border-primary ps-3">ไฮไลท์กิจกรรม</h3>
+                <span class="badge bg-primary rounded-pill">Latest</span>
+            </div>
+            <div id="home-content" class="row g-4">
+                <div class="loading-spinner"><div class="spinner-border text-primary" role="status"></div></div>
+            </div>
+        </div>
+
+        <!-- PR PAGE -->
+        <div id="pr" class="page-section">
+            <div class="p-4 mb-4 bg-white rounded-xl shadow-sm">
+                <h2 class="fw-bold text-primary"><i class="fas fa-bullhorn me-2"></i>ข่าวประชาสัมพันธ์</h2>
+                <p class="text-muted">รวมข่าวสาร ประกาศ และกิจกรรมต่างๆ ของโรงเรียนสตรีพัทลุง</p>
+            </div>
+            <div id="pr-content" class="row g-4"></div>
+        </div>
+
+        <!-- DYNAMIC PAGE (Departments & Learning Areas) -->
+        <div id="dynamic-page" class="page-section">
+            <div class="p-5 mb-4 bg-white rounded-xl shadow-sm">
+                <h2 id="page-title" class="fw-bold text-primary mb-2">หัวข้อ</h2>
+                <p id="page-subtitle" class="text-muted mb-4">รายละเอียดและข้อมูลข่าวสาร</p>
+                
+                <!-- Tabs -->
+                <ul class="nav nav-tabs custom-tabs mb-4" id="deptTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="news-tab" data-bs-toggle="tab" data-bs-target="#tab-news" type="button">
+                            <i class="far fa-newspaper me-2"></i>ข่าวสาร
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="personnel-tab" data-bs-toggle="tab" data-bs-target="#tab-personnel" type="button">
+                            <i class="fas fa-users me-2"></i>บุคลากร
+                        </button>
+                    </li>
+                </ul>
+
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="tab-news" role="tabpanel">
+                        <div id="page-content" class="row g-4"></div>
+                    </div>
+                    <div class="tab-pane fade" id="tab-personnel" role="tabpanel">
+                        <div class="row g-3" id="personnel-list"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ABOUT PAGE -->
+        <div id="about" class="page-section">
+            <div class="p-5 bg-white rounded-xl shadow-sm mb-4">
+                <h2 class="text-primary fw-bold text-center mb-4"><i class="fas fa-school me-2"></i>เกี่ยวกับโรงเรียนสตรีพัทลุง</h2>
+                <div class="row mb-5">
+                    <div class="col-md-12 text-center mb-4">
+                        <img src="https://img5.pic.in.th/file/secure-sv1/IMG_0310f4b22b3a3a8d0946.jpeg" alt="Logo" class="school-logo" style="width: 150px; height: 150px; padding: 10px;">
+                    </div>
+                    <div class="col-md-12">
+                        <h4 class="fw-bold border-start border-4 border-primary ps-3 mb-3">ประวัติโรงเรียน</h4>
+                        <div class="p-3 bg-light rounded-3 mb-4">
+                            <p class="text-justify-thai">โรงเรียนสตรีพัทลุง มีรากฐานมาจากโรงเรียนประชาบาล คือ <strong>"โรงเรียนโสภณพัทลุงกุล"</strong> โดยได้จัดตั้งชั้นมัธยมปีละชั้น จนถึงชั้นมัธยมปีที่ 4 โดยมี นายจรัญ ดิสรา ครูใหญ่ฝ่ายประชาบาลเป็นผู้ดูแล และได้เรียนรวมกันเรื่อยมา จนกระทั่งปี <strong>พ.ศ. 2477</strong> กระทรวงศึกษาธิการได้แต่งตั้ง นางสาวปริก เด่นดาวเสือ รักษาการในตำแหน่งครูใหญ่คนแรก</p>
+                            <p class="text-justify-thai mb-0"><strong>พ.ศ. 2482</strong> มีการย้ายสถานที่ตั้ง โดยกระทรวงศึกษาธิการได้ให้งบประมาณ 6,000 บาท ก่อสร้างอาคารไม้สองชั้นหลังแรก (12 ห้องเรียน) ณ สถานที่ปัจจุบัน เมื่อวันที่ 17 พฤษภาคม 2482 ในระยะแรกรับเฉพาะนักเรียนหญิง ต่อมาในปี พ.ศ. 2505 จึงเริ่มเปิดรับนักเรียนชายในระดับมัธยมศึกษาตอนปลาย</p>
+                        </div>
+                    </div>
+                </div>
+                <h5 class="fw-bold text-primary mb-3"><i class="fas fa-stream me-2"></i>ไทม์ไลน์เหตุการณ์สำคัญ</h5>
+                <div class="timeline-container">
+                    <div class="timeline-item"><div class="timeline-year">พ.ศ. 2502 - 2506</div><p>ก่อสร้างอาคารเรียนหลังที่ 2...</p></div>
+                    <div class="timeline-item"><div class="timeline-year">พ.ศ. 2539 - 2542</div><p>สร้าง "อาคารเฉลิมพระเกียรติ 6 รอบพระชนมพรรษา"...</p></div>
+                    <div class="timeline-item"><div class="timeline-year">พ.ศ. 2553</div><p>สร้าง "อาคารเอนกประสงค์" (โดม)...</p></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ADMISSIONS PAGE -->
+        <div id="admissions" class="page-section">
+            <div class="p-4 bg-white rounded-xl shadow-sm mb-4">
+                <h2 class="text-primary fw-bold mb-4 text-center">ข้อมูลการรับสมัครนักเรียน</h2>
+                
+                <ul class="nav nav-pills mb-4 justify-content-center" id="admissionTabs">
+                    <li class="nav-item me-2">
+                        <button class="nav-link admission-tab-btn active" id="regular-tab" onclick="routeTo('admissions/regular')">ห้องเรียนปกติ</button>
+                    </li>
+                    <li class="nav-item me-2">
+                        <button class="nav-link admission-tab-btn" id="special-tab" onclick="routeTo('admissions/special')">ห้องเรียนพิเศษ</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link admission-tab-btn" id="pretest-tab" onclick="routeTo('admissions/pretest')">SPT PRETEST</button>
+                    </li>
+                </ul>
+
+                <!-- Regular Content -->
+                <div id="content-regular" class="admission-content-pane">
+                    <div class="row g-4 mb-4">
+                        <div class="col-md-6"><div class="program-card"><div class="text-center mb-3"><i class="fas fa-book-reader fa-3x text-primary mb-2"></i></div><h5>มัธยมศึกษาปีที่ 1</h5><ul class="program-list"><li>ทั่วไป</li><li>เขตพื้นที่บริการ</li></ul></div></div>
+                        <div class="col-md-6"><div class="program-card"><div class="text-center mb-3"><i class="fas fa-chart-line fa-3x text-success mb-2"></i></div><h5>มัธยมศึกษาปีที่ 4</h5><ul class="program-list"><li>วิทย์-คณิต</li><li>ศิลป์-คำนวณ</li><li>ศิลป์-ภาษา</li></ul></div></div>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mb-3"><h5 class="fw-bold text-primary">ประกาศ: ห้องเรียนปกติ</h5></div>
+                    <div id="admissions-regular-posts" class="row g-4"></div>
+                </div>
+
+                <!-- Special Content -->
+                <div id="content-special" class="admission-content-pane" style="display:none;">
+                    <div class="row g-4 mb-4">
+                        <div class="col-md-6"><div class="program-card"><div class="text-center mb-3"><i class="fas fa-microscope fa-3x text-info mb-2"></i></div><h5>มัธยมศึกษาปีที่ 1</h5><ul class="program-list"><li>SMTE</li><li>MEP</li></ul></div></div>
+                        <div class="col-md-6"><div class="program-card"><div class="text-center mb-3"><i class="fas fa-atom fa-3x text-warning mb-2"></i></div><h5>มัธยมศึกษาปีที่ 4</h5><ul class="program-list"><li>SMTE</li><li>IEP/MEP</li></ul></div></div>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mb-3"><h5 class="fw-bold text-info">ประกาศ: ห้องเรียนพิเศษ</h5></div>
+                    <div id="admissions-special-posts" class="row g-4"></div>
+                </div>
+
+                <!-- Pretest Content -->
+                <div id="content-pretest" class="admission-content-pane" style="display:none;">
+                    <div class="text-center p-5 bg-light rounded-xl mb-4 border">
+                        <i class="fas fa-file-signature fa-4x text-purple mb-3" style="color: #6f42c1;"></i>
+                        <h4 class="fw-bold">SPT PRETEST</h4>
+                        <p class="text-muted">โครงการทดสอบความรู้ล่วงหน้า เพื่อเตรียมความพร้อมในการสอบเข้าศึกษาต่อ</p>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mb-3"><h5 class="fw-bold" style="color: #6f42c1;">ข่าวสาร SPT PRETEST</h5></div>
+                    <div id="admissions-pretest-posts" class="row g-4"></div>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="contact" class="page-section">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="p-5 bg-white rounded-xl shadow-sm h-100">
+                        <h2 class="text-primary fw-bold">ติดต่อเรา</h2>
+                        <ul class="list-unstyled mt-4">
+                            <li class="mb-3 d-flex"><i class="fas fa-map-marker-alt text-primary mt-1 me-3"></i><span>โรงเรียนสตรีพัทลุง เลขที่ 250 ถนนราเมศวร์ ต.คูหาสวรรค์ อ.เมืองพัทลุง จ.พัทลุง 93000</span></li>
+                            <li class="mb-3"><i class="fas fa-phone text-primary me-3"></i><a href="tel:074613023" class="contact-link">074-613023</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6"><div class="p-5 bg-primary text-white rounded-xl shadow-sm h-100 d-flex align-items-center justify-content-center"><div class="text-center"><i class="fas fa-comments fa-3x mb-3"></i><h3>ส่งข้อความถึงเรา</h3></div></div></div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Floating Buttons -->
+    <div id="admin-add-btn" class="floating-add-btn admin-controls" data-bs-toggle="modal" onclick="openAddPostModal()" title="Add News Post"><i class="fas fa-plus"></i></div>
+    <div id="admin-personnel-btn" class="floating-personnel-btn admin-controls" data-bs-toggle="modal" onclick="openAddPersonnelModal()" title="Add Personnel"><i class="fas fa-user-plus"></i></div>
+
+    <!-- Login Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-xl border-0">
+                <div class="modal-header border-0"><h5 class="modal-title fw-bold">Admin Login</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+                <div class="modal-body">
+                    <form id="loginForm">
+                        <div class="mb-3"><label class="form-label">Email</label><input type="email" id="loginEmail" class="form-control rounded-pill" required></div>
+                        <div class="mb-3"><label class="form-label">Password</label><input type="password" id="loginPassword" class="form-control rounded-pill" required></div>
+                        <button type="submit" class="btn btn-primary w-100 rounded-pill">Login</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit Post Modal -->
+    <div class="modal fade" id="postModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content rounded-xl border-0">
+                <div class="modal-header border-0"><h5 class="modal-title fw-bold" id="postModalTitle">เพิ่มข่าวสาร</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+                <div class="modal-body">
+                    <form id="postForm">
+                        <input type="hidden" id="editPostId">
+                        <input type="hidden" id="autoPostCategory">
+                        <div class="alert alert-info py-2"><small id="postTargetLabel">กำลังดำเนินการใน: หน้าปัจจุบัน</small></div>
+                        <div class="mb-3"><label class="form-label">หัวข้อ (Title)</label><input type="text" id="postTitle" class="form-control" required></div>
+                        <div class="mb-3"><label class="form-label">ลิงก์รูปภาพ (URL)</label><input type="url" id="postImage" class="form-control"></div>
+                        <div class="mb-3"><label class="form-label">ลิงก์ภายนอก (URL)</label><input type="url" id="postLink" class="form-control"></div>
+                        <div class="mb-3"><label class="form-label">เนื้อหา</label><textarea id="postContent" class="form-control" rows="5" required></textarea></div>
+                        <button type="submit" class="btn btn-primary rounded-pill px-4" id="postSubmitBtn">บันทึก</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit Personnel Modal -->
+    <div class="modal fade" id="personnelModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content rounded-xl border-0">
+                <div class="modal-header border-0"><h5 class="modal-title fw-bold" id="personnelModalTitle">เพิ่มบุคลากร</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+                <div class="modal-body">
+                    <form id="personnelForm">
+                        <input type="hidden" id="editPersonnelId">
+                        <input type="hidden" id="autoPersonnelCategory">
+                        <div class="alert alert-success py-2"><small id="personnelTargetLabel">กำลังดำเนินการใน: หน้าปัจจุบัน</small></div>
+                        <div class="mb-3"><label class="form-label">ชื่อ-นามสกุล</label><input type="text" id="personName" class="form-control" required></div>
+                        <div class="mb-3"><label class="form-label">ลิงก์รูปภาพ (URL)</label><input type="url" id="personImage" class="form-control"></div>
+                        <div class="mb-3"><label class="form-label">ตำแหน่ง</label><input type="text" id="personPosition" class="form-control" required></div>
+                        <div class="mb-3"><label class="form-label">วิทยฐานะ</label><input type="text" id="personLevel" class="form-control"></div>
+                        <button type="submit" class="btn btn-success rounded-pill w-100" id="personnelSubmitBtn">บันทึกข้อมูล</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <h5 class="footer-title">
+                        <img src="https://img5.pic.in.th/file/secure-sv1/IMG_0310f4b22b3a3a8d0946.jpeg" alt="Logo" class="school-logo">
+                        Satri Phatthalung
+                    </h5>
+                    <p style="opacity: 0.8; line-height: 1.8;">โรงเรียนสตรีพัทลุง มุ่งมั่นพัฒนาเยาวชนให้มีความรู้คู่คุณธรรม สร้างสรรค์สังคมด้วยปัญญา ก้าวทันเทคโนโลยี</p>
+                    <div class="social-icons mt-4">
+                        <a href="https://www.facebook.com/spt.ac.th" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.facebook.com/photoavspt/" target="_blank"><i class="fas fa-camera"></i></a>
+                        <a href="https://www.instagram.com/sptschool_official?igsh=MWM0NWl2MmF1cXhvdw==" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.tiktok.com/@spt_school?_t=ZS-90tOrK4pFtH&_r=1" target="_blank"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4 ps-lg-5">
+                    <h5 class="footer-title">ลิงก์ด่วน</h5>
+                    <a href="#home" class="footer-link"><i class="fas fa-chevron-right"></i> หน้าแรก</a>
+                    <a href="#pr" class="footer-link"><i class="fas fa-chevron-right"></i> ข่าวประชาสัมพันธ์</a>
+                    <a href="#about" class="footer-link"><i class="fas fa-chevron-right"></i> เกี่ยวกับโรงเรียน</a>
+                    <a href="#admissions/regular" class="footer-link"><i class="fas fa-chevron-right"></i> รับสมัครนักเรียน</a>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <h5 class="footer-title">ข้อมูลติดต่อ</h5>
+                    <div class="footer-contact-item"><div class="footer-contact-icon"><i class="fas fa-map-marker-alt"></i></div><div class="footer-contact-text">250 ถนนราเมศวร์ ตำบลคูหาสวรรค์<br>อำเภอเมือง จังหวัดพัทลุง 93000</div></div>
+                    <div class="footer-contact-item"><div class="footer-contact-icon"><i class="fas fa-phone-alt"></i></div><div class="footer-contact-text"><a href="tel:074613023">074-613023</a></div></div>
+                    <div class="footer-contact-item"><div class="footer-contact-icon"><i class="fas fa-envelope"></i></div><div class="footer-contact-text"><a href="mailto:satriphatthalung@spt.ac.th">satriphatthalung@spt.ac.th</a></div></div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright-section text-center"><div class="container"><span>&copy; 2023 Satri Phatthalung School. All rights reserved.</span></div></div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- JS SECTION -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, updateDoc, deleteDoc, onSnapshot, query, where, doc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyC6HwGPkDIhQGbeBIfWzRLY-MPYOH0PG3o",
+            authDomain: "spt-school.firebaseapp.com",
+            projectId: "spt-school",
+            storageBucket: "spt-school.firebasestorage.app",
+            messagingSenderId: "311592342574",
+            appId: "1:311592342574:web:0e783d191e6865890ebbbf",
+            measurementId: "G-E1KHSPS9NZ"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'spt-school-demo';
+        const POSTS_PATH = ['artifacts', appId, 'public', 'data', 'posts'];
+        const PERSONNEL_PATH = ['artifacts', appId, 'public', 'data', 'personnel'];
+
+        let currentUser = null;
+        let currentCategory = 'home';
+        let currentSubCategory = '';
+        let postsUnsubscribe = null;
+        let personnelUnsubscribe = null;
+        
+        // Data maps for editing
+        let postsMap = {};
+        let personnelMap = {};
+
+        const initAuth = async () => {
+            try { if (!auth.currentUser) await signInAnonymously(auth); } 
+            catch (error) { console.error("Auth Error:", error); }
+        };
+        initAuth();
+
+        onAuthStateChanged(auth, (user) => {
+            currentUser = user;
+            updateUIForUser();
+        });
+
+        // Mapping for Titles
+        const sectionTitles = {
+            'home': 'ไฮไลท์กิจกรรม',
+            'pr': 'ข่าวประชาสัมพันธ์',
+            'about': 'เกี่ยวกับโรงเรียน',
+            'admissions': 'รับสมัครนักเรียน',
+            'contact': 'ติดต่อสอบถาม',
+            'dept-student': 'กิจการนักเรียน',
+            'dept-admin': 'บริหารทั่วไป',
+            'dept-personnel': 'บุคคล',
+            'dept-budget': 'งบประมาณ',
+            'area-thai': 'กลุ่มสาระฯ ภาษาไทย',
+            'area-math': 'กลุ่มสาระฯ คณิตศาสตร์',
+            'area-sci': 'กลุ่มสาระฯ วิทยาศาสตร์',
+            'area-social': 'กลุ่มสาระฯ สังคมศึกษา',
+            'area-health': 'กลุ่มสาระฯ สุขศึกษา',
+            'area-foreign': 'กลุ่มสาระฯ ภาษาต่างประเทศ',
+            'area-art': 'กลุ่มสาระฯ ศิลปะ',
+            'area-work': 'กลุ่มสาระฯ การงานอาชีพ',
+            'area-guidance': 'งานแนะแนว',
+            'doc-schedule': 'ตารางเรียน',
+            'doc-teaching': 'ตารางสอน',
+            'doc-exam': 'ตารางสอบ',
+            'doc-studentlist': 'รายชื่อนักเรียน',
+            'admissions-regular': 'รับสมัครห้องเรียนปกติ',
+            'admissions-special': 'รับสมัครห้องเรียนพิเศษ',
+            'admissions-pretest': 'SPT PRETEST'
+        };
+
+        function updatePageTitle(category) {
+            const title = sectionTitles[category] || 'Satri Phatthalung School';
+            document.title = `${title} - Satri Phatthalung School`;
+        }
+
+        function handleHashChange() {
+            let hash = window.location.hash.substring(1);
+            if (hash === 'login') { toggleAuthModal(); return; }
+            if (!hash || hash === '') hash = 'home';
+            
+            let mainCategory = hash;
+            let subCategory = '';
+            
+            if (hash.includes('/')) {
+                const parts = hash.split('/');
+                mainCategory = parts[0];
+                subCategory = parts[1];
+            } else if (hash === 'admissions') {
+                subCategory = 'regular';
+            }
+
+            currentCategory = mainCategory;
+            currentSubCategory = subCategory; 
+            
+            updatePageTitle(subCategory ? `${mainCategory}-${subCategory}` : mainCategory);
+            window.scrollTo(0, 0);
+
+            document.querySelectorAll('.nav-link').forEach(l => {
+                l.classList.remove('active');
+                let linkHref = l.getAttribute('href');
+                if(linkHref === '#' + hash || linkHref === '#' + mainCategory + '/regular') {
+                    l.classList.add('active');
+                }
+            });
+
+            document.querySelectorAll('.page-section').forEach(p => p.classList.remove('active'));
+
+            if (['home', 'about', 'contact', 'pr'].includes(mainCategory)) {
+                document.getElementById(mainCategory).classList.add('active');
+                if (mainCategory === 'home') loadPosts('home', 'home-content');
+                if (mainCategory === 'pr') loadPosts('pr', 'pr-content');
+            } else if (mainCategory === 'admissions') {
+                document.getElementById('admissions').classList.add('active');
+                handleAdmissionsTabs(subCategory);
+            } else {
+                const dynamicPage = document.getElementById('dynamic-page');
+                dynamicPage.classList.add('active');
+                document.getElementById('page-title').innerText = sectionTitles[mainCategory] || 'ข้อมูลทั่วไป';
+                
+                const tabs = document.getElementById('deptTabs');
+                const isDoc = mainCategory.startsWith('doc-');
+                
+                if (isDoc) {
+                    tabs.style.display = 'none';
+                    document.getElementById('tab-news').classList.add('show', 'active');
+                    document.getElementById('tab-personnel').classList.remove('show', 'active');
+                } else {
+                    tabs.style.display = 'flex';
+                    const newsTabBtn = document.querySelector('#news-tab');
+                    const newsTab = new bootstrap.Tab(newsTabBtn);
+                    newsTab.show();
+                }
+                
+                loadPosts(mainCategory, 'page-content');
+                if(!isDoc) loadPersonnel(mainCategory);
+            }
+
+            const navToggler = document.querySelector('.navbar-toggler');
+            const navCollapse = document.querySelector('.navbar-collapse');
+            if (navCollapse.classList.contains('show')) navToggler.click();
+            
+            updateUIForUser();
+        }
+
+        function handleAdmissionsTabs(sub) {
+            document.querySelectorAll('.admission-tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.admission-content-pane').forEach(p => p.style.display = 'none');
+
+            if(!['regular', 'special', 'pretest'].includes(sub)) sub = 'regular';
+
+            document.getElementById(`${sub}-tab`).classList.add('active');
+            document.getElementById(`content-${sub}`).style.display = 'block';
+
+            loadPosts(`admissions-${sub}`, `admissions-${sub}-posts`);
+        }
+
+        window.addEventListener('hashchange', handleHashChange);
+        window.addEventListener('load', handleHashChange);
+        window.routeTo = (pageId) => { window.location.hash = pageId; };
+
+        // --- Firestore: Personnel ---
+        function loadPersonnel(category) {
+            const container = document.getElementById('personnel-list');
+            container.innerHTML = '<div class="col-12 text-center py-4"><div class="spinner-border text-primary" role="status"></div></div>';
+
+            if (personnelUnsubscribe) personnelUnsubscribe();
+
+            const q = collection(db, ...PERSONNEL_PATH);
+
+            personnelUnsubscribe = onSnapshot(q, (snapshot) => {
+                const personnel = [];
+                personnelMap = {}; // Reset map
+                snapshot.forEach(doc => { 
+                    const data = doc.data();
+                    const p = { id: doc.id, ...data };
+                    personnel.push(p); 
+                    personnelMap[doc.id] = p; // Store for editing
+                });
+                const filtered = personnel.filter(p => p.category === category);
+                renderPersonnel(filtered, container);
+            });
+        }
+
+        function renderPersonnel(data, container) {
+            if (data.length === 0) {
+                container.innerHTML = '<div class="col-12 text-center text-muted py-5">ยังไม่มีข้อมูลบุคลากรในส่วนนี้</div>';
+                return;
+            }
+            const isAdmin = currentUser && !currentUser.isAnonymous;
+            let html = '';
+            data.forEach(p => {
+                const imgHtml = p.imageUrl ? 
+                    `<img src="${p.imageUrl}" class="personnel-img" alt="${p.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+                     <div class="personnel-icon-placeholder" style="display:none"><i class="fas fa-user"></i></div>` : 
+                    `<div class="personnel-icon-placeholder"><i class="fas fa-user"></i></div>`;
+
+                html += `
+                    <div class="col-md-6">
+                        <div class="personnel-card">
+                            ${imgHtml}
+                            <div class="personnel-info">
+                                <h6>${p.name}</h6>
+                                <small>${p.position}</small>
+                                ${p.level ? `<span class="personnel-badge">${p.level}</span>` : ''}
+                            </div>
+                            ${isAdmin ? `
+                                <div class="personnel-actions">
+                                    <i class="fas fa-edit action-btn btn-edit" onclick="openEditPersonnelModal('${p.id}')"></i>
+                                    <i class="fas fa-trash-alt action-btn btn-delete" onclick="deletePersonnel('${p.id}')"></i>
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        // --- Firestore: Posts ---
+        function loadPosts(category, targetId) {
+            const container = document.getElementById(targetId);
+            if (!container) return;
+
+            container.innerHTML = '<div class="col-12 text-center py-5"><div class="spinner-border text-primary" role="status"></div></div>';
+
+            if (postsUnsubscribe && targetId === 'page-content') postsUnsubscribe();
+
+            const q = collection(db, ...POSTS_PATH);
+
+            onSnapshot(q, (snapshot) => {
+                const posts = [];
+                postsMap = {}; // Reset map
+                snapshot.forEach(doc => { 
+                    const data = doc.data();
+                    const p = { id: doc.id, ...data };
+                    posts.push(p); 
+                    postsMap[doc.id] = p; // Store for editing
+                });
+                const filteredPosts = posts.filter(p => p.category === category);
+                filteredPosts.sort((a, b) => b.timestamp - a.timestamp);
+                renderPosts(filteredPosts, container);
+            }, (error) => {
+                container.innerHTML = `<div class="alert alert-danger">Error: ${error.message}</div>`;
+            });
+        }
+
+        function renderPosts(posts, container) {
+            if (posts.length === 0) {
+                container.innerHTML = '<div class="col-12 text-center text-muted py-5">ยังไม่มีข่าวสารในส่วนนี้</div>';
+                return;
+            }
+            const isAdmin = currentUser && !currentUser.isAnonymous;
+            let html = '';
+            posts.forEach(post => {
+                let imageHtml = post.imageUrl ? `<div class="post-img-container"><img src="${post.imageUrl}" class="post-img" onerror="this.style.display='none'"></div>` : '';
+                let linkHtml = post.linkUrl ? `<a href="${post.linkUrl}" target="_blank" class="btn btn-sm btn-outline-primary rounded-pill"><i class="fas fa-external-link-alt me-1"></i> เปิดลิงก์</a>` : '';
+                html += `
+                    <div class="col-md-6 col-lg-4">
+                        <div class="post-card h-100">
+                            ${imageHtml}
+                            <div class="post-header">
+                                <span class="category-badge mb-2 d-inline-block">${sectionTitles[post.category] || post.category}</span>
+                                <h5 class="card-title mb-0 text-truncate" title="${post.title}">${post.title}</h5>
+                            </div>
+                            <div class="post-body">
+                                <p class="card-text text-secondary small" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">${post.content}</p>
+                            </div>
+                            <div class="post-footer">
+                                <small><i class="far fa-clock me-1"></i> ${new Date(post.timestamp).toLocaleDateString('th-TH')}</small>
+                                <div class="d-flex gap-2">
+                                    ${linkHtml}
+                                    ${isAdmin ? `
+                                        <i class="fas fa-edit delete-btn text-warning" onclick="openEditPostModal('${post.id}')" title="แก้ไข"></i>
+                                        <i class="fas fa-trash-alt delete-btn" onclick="confirmDelete('${post.id}')" title="ลบ"></i>
+                                    ` : ''}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        // --- UI Updates ---
+        function updateUIForUser() {
+            const isAdmin = currentUser && !currentUser.isAnonymous;
+            const postBtn = document.getElementById('admin-add-btn');
+            const personnelBtn = document.getElementById('admin-personnel-btn');
+            
+            postBtn.style.display = isAdmin ? 'flex' : 'none';
+            
+            const isDynamicPage = document.getElementById('dynamic-page').classList.contains('active');
+            const isPersonnelTab = document.querySelector('#tab-personnel').classList.contains('active');
+            const isDoc = currentCategory.startsWith('doc-');
+            
+            if (isAdmin && isDynamicPage && isPersonnelTab && !isDoc) {
+                personnelBtn.style.display = 'flex';
+                postBtn.style.display = 'none'; 
+            } else {
+                personnelBtn.style.display = 'none';
+                if(isAdmin) postBtn.style.display = 'flex';
+            }
+            
+            document.querySelectorAll('.admin-indicator-item').forEach(el => el.style.display = isAdmin ? 'block' : 'none');
+        }
+        
+        document.querySelectorAll('button[data-bs-toggle="tab"]').forEach(tab => {
+            tab.addEventListener('shown.bs.tab', () => updateUIForUser());
+        });
+
+        // --- Admin Handlers ---
+        
+        // --- ADD/EDIT POST ---
+        window.openAddPostModal = () => {
+            document.getElementById('postForm').reset();
+            document.getElementById('editPostId').value = ''; // Clear ID for Add mode
+            document.getElementById('postModalTitle').innerText = 'เพิ่มข่าวสาร';
+            document.getElementById('postSubmitBtn').innerText = 'โพสต์';
+            
+            let target = currentCategory;
+            if (target === 'admissions') {
+                target = `admissions-${currentSubCategory || 'regular'}`;
+            }
+            document.getElementById('autoPostCategory').value = target;
+            document.getElementById('postTargetLabel').innerText = `กำลังโพสต์ลงใน: ${sectionTitles[target] || target}`;
+            
+            const modal = new bootstrap.Modal(document.getElementById('postModal'));
+            modal.show();
+        };
+
+        window.openEditPostModal = (id) => {
+            const post = postsMap[id];
+            if (!post) return;
+
+            document.getElementById('editPostId').value = id;
+            document.getElementById('autoPostCategory').value = post.category; // Keep original category
+            document.getElementById('postTitle').value = post.title;
+            document.getElementById('postImage').value = post.imageUrl || '';
+            document.getElementById('postLink').value = post.linkUrl || '';
+            document.getElementById('postContent').value = post.content;
+            
+            document.getElementById('postModalTitle').innerText = 'แก้ไขข่าวสาร';
+            document.getElementById('postTargetLabel').innerText = `กำลังแก้ไขใน: ${sectionTitles[post.category] || post.category}`;
+            document.getElementById('postSubmitBtn').innerText = 'บันทึกการแก้ไข';
+
+            const modal = new bootstrap.Modal(document.getElementById('postModal'));
+            modal.show();
+        };
+
+        // --- ADD/EDIT PERSONNEL ---
+        window.openAddPersonnelModal = () => {
+            document.getElementById('personnelForm').reset();
+            document.getElementById('editPersonnelId').value = '';
+            document.getElementById('personnelModalTitle').innerText = 'เพิ่มบุคลากร';
+            document.getElementById('personnelSubmitBtn').innerText = 'บันทึกข้อมูล';
+
+            document.getElementById('autoPersonnelCategory').value = currentCategory;
+            document.getElementById('personnelTargetLabel').innerText = `กำลังเพิ่มลงใน: ${sectionTitles[currentCategory] || currentCategory}`;
+            
+            const modal = new bootstrap.Modal(document.getElementById('personnelModal'));
+            modal.show();
+        };
+
+        window.openEditPersonnelModal = (id) => {
+            const p = personnelMap[id];
+            if (!p) return;
+
+            document.getElementById('editPersonnelId').value = id;
+            document.getElementById('autoPersonnelCategory').value = p.category;
+            document.getElementById('personName').value = p.name;
+            document.getElementById('personImage').value = p.imageUrl || '';
+            document.getElementById('personPosition').value = p.position;
+            document.getElementById('personLevel').value = p.level || '';
+
+            document.getElementById('personnelModalTitle').innerText = 'แก้ไขข้อมูลบุคลากร';
+            document.getElementById('personnelTargetLabel').innerText = `กำลังแก้ไขใน: ${sectionTitles[p.category] || p.category}`;
+            document.getElementById('personnelSubmitBtn').innerText = 'บันทึกการแก้ไข';
+
+            const modal = new bootstrap.Modal(document.getElementById('personnelModal'));
+            modal.show();
+        };
+
+        // --- AUTH & SUBMIT ---
+        window.toggleAuthModal = () => {
+            if (currentUser && !currentUser.isAnonymous) {
+                if(confirm('ออกจากระบบ Admin?')) {
+                    signOut(auth).then(() => {
+                        signInAnonymously(auth);
+                        window.location.hash = 'home';
+                        window.location.reload();
+                    });
+                }
+            } else {
+                const modal = new bootstrap.Modal(document.getElementById('loginModal'));
+                modal.show();
+            }
+        };
+
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            try {
+                await signInWithEmailAndPassword(auth, document.getElementById('loginEmail').value, document.getElementById('loginPassword').value);
+                bootstrap.Modal.getInstance(document.getElementById('loginModal')).hide();
+                document.getElementById('loginForm').reset();
+                window.location.hash = 'home';
+            } catch (error) { alert("Login Failed: " + error.message); }
+        });
+
+        document.getElementById('postForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (!currentUser || currentUser.isAnonymous) return alert("Admin only");
+            const submitBtn = document.getElementById('postSubmitBtn');
+            const editId = document.getElementById('editPostId').value;
+            
+            try {
+                submitBtn.disabled = true;
+                const postData = {
+                    title: document.getElementById('postTitle').value,
+                    category: document.getElementById('autoPostCategory').value,
+                    content: document.getElementById('postContent').value,
+                    imageUrl: document.getElementById('postImage').value,
+                    linkUrl: document.getElementById('postLink').value,
+                    authorId: currentUser.uid
+                };
+
+                if (editId) {
+                    // Update existing
+                    await updateDoc(doc(db, ...POSTS_PATH, editId), postData);
+                } else {
+                    // Add new
+                    postData.timestamp = Date.now();
+                    await addDoc(collection(db, ...POSTS_PATH), postData);
+                }
+
+                bootstrap.Modal.getInstance(document.getElementById('postModal')).hide();
+                document.getElementById('postForm').reset();
+            } catch (error) { alert("Error: " + error.message); } 
+            finally { submitBtn.disabled = false; }
+        });
+
+        document.getElementById('personnelForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (!currentUser || currentUser.isAnonymous) return alert("Admin only");
+            const submitBtn = document.getElementById('personnelSubmitBtn');
+            const editId = document.getElementById('editPersonnelId').value;
+
+            try {
+                submitBtn.disabled = true;
+                const personnelData = {
+                    name: document.getElementById('personName').value,
+                    imageUrl: document.getElementById('personImage').value,
+                    position: document.getElementById('personPosition').value,
+                    level: document.getElementById('personLevel').value,
+                    category: document.getElementById('autoPersonnelCategory').value
+                };
+
+                if (editId) {
+                    await updateDoc(doc(db, ...PERSONNEL_PATH, editId), personnelData);
+                } else {
+                    personnelData.timestamp = Date.now();
+                    await addDoc(collection(db, ...PERSONNEL_PATH), personnelData);
+                }
+
+                bootstrap.Modal.getInstance(document.getElementById('personnelModal')).hide();
+                document.getElementById('personnelForm').reset();
+            } catch (error) { alert("Error: " + error.message); } 
+            finally { submitBtn.disabled = false; }
+        });
+
+        window.confirmDelete = async (id) => {
+            if (confirm("ลบโพสต์นี้?")) {
+                try { await deleteDoc(doc(db, ...POSTS_PATH, id)); } catch (error) { alert("ลบไม่สำเร็จ"); }
+            }
+        };
+        
+        window.deletePersonnel = async (id) => {
+            if (confirm("ลบข้อมูลบุคลากรนี้?")) {
+                try { await deleteDoc(doc(db, ...PERSONNEL_PATH, id)); } catch (error) { alert("ลบไม่สำเร็จ"); }
+            }
+        };
+    </script>
+</body>
+</html>
+
+
